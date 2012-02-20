@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class GcdTests {
+public class GcdTest {
 	
 	@Test
 	public void testGcdOf4And6Is2(){
