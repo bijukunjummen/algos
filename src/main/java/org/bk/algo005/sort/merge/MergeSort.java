@@ -10,7 +10,6 @@ public class MergeSort {
 	}
 	
 	private static <T extends Comparable<? super T>> void mergesort(T[] a, T[] helper, int lo, int hi){
-		System.out.println(lo + ":" + hi);
 		if (lo<hi){
 			int mid = (lo + hi)/2;
 			mergesort(a, helper, lo, mid);
