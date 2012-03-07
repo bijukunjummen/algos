@@ -10,10 +10,10 @@ public class InsertionSort {
 		}
 	}
 
-	private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {
+	private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int j) {
 		T temp = a[i];
-		a[i] = a[min];
-		a[min] = temp;
+		a[i] = a[j];
+		a[j] = temp;
 	}
 	
 	private static <T extends Comparable<? super T>> boolean isLess(T a, T b){

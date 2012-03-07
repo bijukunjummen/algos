@@ -4,20 +4,20 @@ public class SelectionSort {
 	public static <T extends Comparable<? super T>> void sort(T[] a) {
 		int numElements = a.length;
 		for (int i = 0; i < numElements; i++) {
-			int min = i;
+			int minIndex = i;
 			for (int j = i + 1; j < numElements; j++) {
-				if (isLess(a[j], a[min])) {
-					min = j;
+				if (isLess(a[j], a[minIndex])) {
+					minIndex = j;
 				}
 			}
-			exchange(a, i, min);
+			exchange(a, i, minIndex);
 		}
 	}
 
-	private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {
+	private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int j) {
 		T temp = a[i];
-		a[i] = a[min];
-		a[min] = temp;
+		a[i] = a[j];
+		a[j] = temp;
 	}
 	
 	private static <T extends Comparable<? super T>> boolean isLess(T a, T b){

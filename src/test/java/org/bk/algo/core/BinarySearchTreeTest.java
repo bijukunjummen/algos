@@ -1,9 +1,10 @@
 package org.bk.algo.core;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.core.Is;
+import java.util.List;
+
 import org.junit.Test;
 
 public class BinarySearchTreeTest {
@@ -16,6 +17,11 @@ public class BinarySearchTreeTest {
         bst.put(3, "Three");
         
         assertThat(bst.get(1), is("One"));        
+    }
+    
+    public void myMethod(List<? super Number> aList){
+        aList.add(2);
+        aList.add(23d);
     }
 
 }
