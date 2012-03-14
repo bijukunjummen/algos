@@ -1,15 +1,34 @@
 package org.bk.algo.core;
 
-public class PriorityQueue<T extends Comparable<? super T>> {
+import java.lang.reflect.Array;
+
+public class MaxPriorityQueue<T extends Comparable<? super T>> {
     T[] pq;
+    int N=0;
     
-    public PriorityQueue(T[] pq){
-        this.pq = pq;
+    public MaxPriorityQueue(int maxSize){
+        this.pq = (T[])new Comparable[maxSize];
+    }
+
+    public void insert(T v){
+        pq[++N] = v;
+        swim(N);
+    }
+    
+    public T delAndGetMaximum(){
+        T max = pq[1];
+        exchange(1, N);
+        pq[N] = null;
+        N--;
+        sink(1);
+        return max;
     }
     
     private boolean isLess(int i, int j){
         return (this.pq[i].compareTo(this.pq[j])<0);
     }
+    
+    
     
     private void exchange(int i, int j){
         T temp = pq[i];
@@ -25,10 +44,10 @@ public class PriorityQueue<T extends Comparable<? super T>> {
     }
 
     private void sink(int k){
-        int N = pq.length;
-        while (2*k<=N){
+        boolean isHeaped = false;
+        while (!isHeaped && 2*k<=this.N){
             int j = 2*k;
-            if (j<N && isLess(j, j++)) j++;
+            if (j<this.N && isLess(j, j+1)) j++;
             if (!isLess(k,j)) break;
             exchange(k,j);
             k = j;
