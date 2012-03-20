@@ -42,6 +42,8 @@ public class LinkedList<T> implements Iterable<T>{
 		first = first.next;
 		if (first!=null){
 			first.previous = null;
+		}else{
+		    last = null;
 		}
 		size--;
 		return item;

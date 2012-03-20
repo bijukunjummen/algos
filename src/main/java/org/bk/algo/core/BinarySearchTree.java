@@ -21,10 +21,9 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         else 
             return get(key, node.right);
     }
-    
-    private Node<K, V> put(K key, V val, Node<K, V> node) {
+    private Node<K, V> put(K key, V val, Node<K, V> node){
         if (node==null){
-            return new Node<K,V>(key, val, 1);
+            return new Node<K, V>(key, val, 1);
         }
         
         int cmp = key.compareTo(node.key);
@@ -32,14 +31,17 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         if (cmp==0){
             node.value = val;
         }else if (cmp<0){
-            node.left = put(key, val, node.left);
-        }else if (cmp>0){
-            node.right = put(key, val, node.right);
+            return put(key, val, node.left);
+        }else{
+            return put(key, val, node.right);
         }
         
         node.size = size(node.left) + size(node.right) + 1;
+        
         return node;
-    }   
+        
+    }
+    
     
     public int size(){
         return size(this.root);
@@ -82,6 +84,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         if (node==null) return 0;
         return node.size;
     }
+    
 
     private static class Node<K extends Comparable<? super K>, V>{
         private K key;

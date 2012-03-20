@@ -36,6 +36,7 @@ public class BinarySearchTreeTest {
         
     }
     
+    
     @Test
     public void testInOrderTraversalOfBinaryTree(){
         BinarySearchTree<Integer, String> bst = new BinarySearchTree<Integer, String>();        
@@ -87,6 +88,7 @@ public class BinarySearchTreeTest {
         bst.traversePostOrder(vst);
         assertThat(vst.getKeys(), contains(1,2,5,4,6,3));
     }    
+
 
     private static class NodeCollectingVisitor<K, V> implements Visitor<K, V>{
         

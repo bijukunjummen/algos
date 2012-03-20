@@ -20,11 +20,10 @@ public class QueueTest {
 	@Test
 	public void testDequeueAndGetSize(){
 		queue.enqueue("001");
-		queue.enqueue("002");
-		queue.enqueue("003");
-		
 		assertThat(queue.dequeue(), is("001"));
+        queue.enqueue("002");		
 		assertThat(queue.dequeue(), is("002"));
+		queue.enqueue("003");
 		assertThat(queue.dequeue(), is("003"));
 	}
 

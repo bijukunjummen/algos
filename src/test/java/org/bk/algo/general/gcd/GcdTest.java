@@ -1,4 +1,4 @@
-package org.bk.algo.general;
+package org.bk.algo.general.gcd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

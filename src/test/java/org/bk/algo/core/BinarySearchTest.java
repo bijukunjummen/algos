@@ -36,4 +36,5 @@ public class BinarySearchTest {
         assertThat(BinarySearch.recSearch(anArr, 20), is(-1));
 
     }
+    
 }

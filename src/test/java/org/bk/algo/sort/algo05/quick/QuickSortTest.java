@@ -16,5 +16,19 @@ public class QuickSortTest {
 		QuickSort.sort(arr);
 		assertThat(arr, is(arrayContaining(SortFixtures.fixture1Expected())));
 	}
+	
+   @Test
+   public void testForASmallArrayOfIntegersWithRepeatingValues(){
+        Integer[] arr = SortFixtures.fixture2();
+        QuickSort.sort(arr);
+        assertThat(arr, is(arrayContaining(SortFixtures.fixture2Expected())));
+    }
+   
+   @Test
+   public void testForASmallArrayOfIntegersWithRepeatingValues2(){
+        Integer[] arr = SortFixtures.fixture3();
+        QuickSort.sort(arr);
+        assertThat(arr, is(arrayContaining(SortFixtures.fixture3Expected())));
+    }
 
 }

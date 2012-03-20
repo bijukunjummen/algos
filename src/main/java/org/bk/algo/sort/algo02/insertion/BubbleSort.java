@@ -12,10 +12,8 @@ public class BubbleSort {
                     swapped = true;
                 }
             }
-        }
-        
+        }        
     }
-    
     
     private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int j){
         T temp = a[i];
