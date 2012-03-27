@@ -12,22 +12,24 @@ public class QuickSort {
         quicksort(a, j + 1, hi);
     }
 
-    private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi) {
+    private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi){
         int i = lo;
         int j = hi+1;
+        
         T partitionItem = a[lo];
-
-        while (i<j) {
-            while (isLess(a[++i], partitionItem) && i<=hi);
-            while (isLess(partitionItem, a[--j]) && j>=lo);
-            if (i <= j)
+        
+        while(i<j){
+            while(isLess(a[++i], partitionItem) && i<=hi);
+            while(isLess(partitionItem, a[--j]) && j>=lo);
+            
+            if (i<=j)
                 exchange(a, i, j);
-
         }
         exchange(a, lo, j);
+        
         return j;
     }
-
+    
     private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {
         T temp = a[i];
         a[i] = a[min];

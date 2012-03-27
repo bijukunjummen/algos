@@ -1,5 +1,7 @@
 package org.bk.algo.core;
 
+import java.util.Stack;
+
 public class BinarySearchTree<K extends Comparable<? super K>, V> {
     private Node<K, V> root;
     
@@ -21,6 +23,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         else 
             return get(key, node.right);
     }
+    
     private Node<K, V> put(K key, V val, Node<K, V> node){
         if (node==null){
             return new Node<K, V>(key, val, 1);
@@ -31,9 +34,9 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         if (cmp==0){
             node.value = val;
         }else if (cmp<0){
-            return put(key, val, node.left);
+            node.left =  put(key, val, node.left);
         }else{
-            return put(key, val, node.right);
+            node.right =  put(key, val, node.right);
         }
         
         node.size = size(node.left) + size(node.right) + 1;
@@ -58,6 +61,42 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         traverseInOrder(node.right, visitor);
     }
     
+    public boolean checkBST(){
+        return checkBST(this.root);
+    }
+    
+    private boolean checkBST(Node<K, V> node){
+        if (node==null) return true;
+        Stack<Node<K, V>> stackLeft = new Stack<Node<K,V>>();
+        Stack<Node<K, V>> stackRight = new Stack<Node<K,V>>();
+        
+        stackLeft.push(node);
+        while(!stackLeft.isEmpty()){
+            Node<K,V> aNode = stackLeft.pop();
+            if (aNode.left!=null)
+                if (!(aNode.key.compareTo(aNode.left.key)>0)){
+                    return false;
+                }else{
+                    stackLeft.push(aNode.left);
+                }            
+        }
+        
+        stackRight.push(node);        
+        while(!stackRight.isEmpty()){
+            Node<K,V> aNode = stackRight.pop();
+            if (aNode.right!=null)
+                if (!(aNode.key.compareTo(aNode.right.key)<0)){
+                    return false;
+                }else{
+                    stackRight.push(aNode.right);
+                }            
+        }
+        
+        return true;
+
+        
+    }
+
     public void traversePreOrder(Visitor<K, V> visitor){
         traversePreOrder(this.root, visitor);
     }
@@ -86,7 +125,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
     }
     
 
-    private static class Node<K extends Comparable<? super K>, V>{
+    protected final static class Node<K extends Comparable<? super K>, V>{
         private K key;
         private V value;
         private Node<K, V> left;

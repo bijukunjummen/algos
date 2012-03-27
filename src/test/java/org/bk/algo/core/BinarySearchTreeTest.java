@@ -87,7 +87,23 @@ public class BinarySearchTreeTest {
         NodeCollectingVisitor<Integer, String> vst =  new NodeCollectingVisitor<Integer, String>();
         bst.traversePostOrder(vst);
         assertThat(vst.getKeys(), contains(1,2,5,4,6,3));
+    }
+    
+    @Test
+    public void testBST(){
+        BinarySearchTree<Integer, String> bst = new BinarySearchTree<Integer, String>();        
+        bst.put(3, "Three");
+        bst.put(2, "Two");
+        bst.put(1, "One");
+        bst.put(6, "Six");
+        bst.put(4, "Four");
+        bst.put(5, "Five");
+        
+        bst.checkBST();
+        
+        
     }    
+
 
 
     private static class NodeCollectingVisitor<K, V> implements Visitor<K, V>{
