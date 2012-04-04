@@ -13,21 +13,19 @@ public class QuickSort {
     }
 
     private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi){
-        int i = lo;
-        int j = hi+1;
-        
-        T partitionItem = a[lo];
-        
-        while(i<j){
-            while(isLess(a[++i], partitionItem) && i<=hi);
-            while(isLess(partitionItem, a[--j]) && j>=lo);
-            
-            if (i<=j)
-                exchange(a, i, j);
-        }
-        exchange(a, lo, j);
-        
-        return j;
+    	int i=lo;
+    	int j=hi+1;
+    	T partitionItem = a[lo];
+    	while(i<j){
+    		while (isLess(a[++i], partitionItem) && i<=hi);
+    		while (isLess(partitionItem, a[--j]) && j>=lo);
+    		if (i<=j)
+    			exchange(a, i, j);
+    	}
+    	
+    	exchange(a, j, lo);
+    	return j;
+    	
     }
     
     private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {

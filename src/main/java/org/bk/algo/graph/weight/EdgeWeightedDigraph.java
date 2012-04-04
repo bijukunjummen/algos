@@ -1,4 +1,4 @@
-package org.bk.algo.graph;
+package org.bk.algo.graph.weight;
 
 import org.bk.algo.core.Bag;
 

@@ -1,12 +1,11 @@
 package org.bk.algo.core;
 
-import java.lang.reflect.Array;
-
 public class MaxPriorityQueue<T extends Comparable<? super T>> {
     T[] pq;
     int N=0;
     
-    public MaxPriorityQueue(int maxSize){
+    @SuppressWarnings("unchecked")
+	public MaxPriorityQueue(int maxSize){
         this.pq = (T[])new Comparable[maxSize];
     }
 
@@ -28,8 +27,6 @@ public class MaxPriorityQueue<T extends Comparable<? super T>> {
         return (this.pq[i].compareTo(this.pq[j])<0);
     }
     
-    
-    
     private void exchange(int i, int j){
         T temp = pq[i];
         pq[i] = pq[j];
@@ -44,14 +41,12 @@ public class MaxPriorityQueue<T extends Comparable<? super T>> {
     }
 
     private void sink(int k){
-        boolean isHeaped = false;
-        while (!isHeaped && 2*k<=this.N){
-            int j = 2*k;
-            if (j<this.N && isLess(j, j+1)) j++;
-            if (!isLess(k,j)) break;
-            exchange(k,j);
-            k = j;
-        }
+    	while (2*k<=this.N){
+    		int i = 2*k;
+    		if (i<2*k && isLess(i,i+1)) i=i+1;
+    		if (isLess(k, i)) exchange(k, i);
+    		k=i;
+    	}
     }
 
 }

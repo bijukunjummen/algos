@@ -28,21 +28,16 @@ public class BreadthFirstSearch {
         Queue<Integer> vertices = new Queue<Integer>();
         vertices.enqueue(v);
         marked.set(v);
-        System.out.println(v);
         
         while(!vertices.isEmpty()){
             int w = vertices.dequeue();
             for (int adj: graph.adj(w)){
                 if (!marked.get(adj)){
+                	System.out.println(w);
                     marked.set(adj);
                     vertices.enqueue(adj);
-                    System.out.println(adj);
                 }
             }
         }
-        
     }
-    
-    
-
 }

@@ -12,6 +12,16 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
     public void put(K key, V val){
         this.root = put(key, val, root);
     }
+    
+    public int getHeight(){
+    	return getHeight(this.root);
+    }
+    
+    private int getHeight(Node<K, V> node){
+    	if (node==null) return 0;
+    	
+    	return Math.max(getHeight(node.left), getHeight(node.right));
+    }
  
     private V get(K key, Node<K, V> node) {
         if (node==null) return null;

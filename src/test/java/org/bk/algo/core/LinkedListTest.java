@@ -90,4 +90,16 @@ public class LinkedListTest {
 		}
 		assertThat(items, is("001002003004"));
 	}
+	
+	@Test
+	public void testKthFromEnd(){
+		LinkedList<String> linkedList = new LinkedList<String>();
+		linkedList.insertAtEnd("001");
+		linkedList.insertAtEnd("002");
+		linkedList.insertAtEnd("003");
+		linkedList.insertAtEnd("004");
+		
+		assertThat(linkedList.kthFromEnd(3), is("002"));
+	}	
+	
 }

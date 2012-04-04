@@ -25,5 +25,7 @@ public class IntegerBinarySearchTreeTest {
         assertThat(bst.get(4), is("Four"));
         assertThat(bst.size(), is(6));
         assertThat(bst.validateBST(), is(true));
+        
+        assertThat(bst.isBalanced(), is(false));
     }
 }

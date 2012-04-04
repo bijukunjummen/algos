@@ -100,8 +100,6 @@ public class BinarySearchTreeTest {
         bst.put(5, "Five");
         
         bst.checkBST();
-        
-        
     }    
 
 

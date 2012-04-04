@@ -68,6 +68,33 @@ public class IntegerBST<V>{
         return checkBST(node.left, min, node.key) && checkBST(node.right, node.key, max);
     }
     
+    public boolean isBalanced(){
+    	if (checkHeightAndBalance(this.root)==-1){
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private int checkHeightAndBalance(Node<V> node){
+    	if (node==null) return 0;
+    	
+    	int leftHeight = checkHeightAndBalance(node.left);
+    	if (leftHeight==-1){
+    		return -1;
+    	}
+    	
+    	int rightHeight = checkHeightAndBalance(node.right);
+    	
+    	if (rightHeight==-1){
+    		return -1;
+    	}
+    	if (Math.abs(leftHeight-rightHeight)>1){
+    		return -1;
+    	}
+    	
+    	return Math.max(leftHeight , rightHeight) + 1;
+    }
+    
 
     private static class Node<V>{
         Integer key;
