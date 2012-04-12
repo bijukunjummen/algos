@@ -37,23 +37,43 @@ public class LinkedList<T> implements Iterable<T>{
 		size++;
 	}	
 	
-	public T kthFromEnd(int k){
-		Node<T> link1 = this.first;
-		Node<T> link2 = this.first;
-		for (int i=0;i<k-1 ;i++){
-			if (link2==null) return null;
-			link2 = link2.next;
+	public T kthFromEndIterative(int k){
+		Node<T> first = this.first;
+		Node<T> second = this.first;
+		
+		for (int i=0;i<k-1;i++){
+			second = second.next;
 		}
 		
-		while (link2.next!=null){
-			link1 = link1.next;
-			link2 = link2.next;
+		while (second.next!=null){
+			first = first.next;
+			second = second.next;
 		}
 		
-		return link1.item;
-		
+		return first.item;
 	}
 
+	private class IntWrapper{
+		private int value;
+	}
+	
+	public T kthFromEndRecurs(int k){
+		return kthFromEndRecurs(this.first, k, new IntWrapper()).item;
+	}
+	
+	
+	private Node<T> kthFromEndRecurs(Node<T> head, final int k, IntWrapper intWrapper){
+		if (head==null) return null;
+
+		Node<T> node = kthFromEndRecurs(head.next, k, intWrapper);
+		intWrapper.value = intWrapper.value + 1;		
+		if (intWrapper.value==k){
+			return head;
+		}
+		return node;
+	}
+	
+	
 	public T removeFromBeginning(){
 		T item = first.item;
 		first = first.next;

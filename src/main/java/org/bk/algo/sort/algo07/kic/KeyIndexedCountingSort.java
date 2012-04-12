@@ -23,7 +23,6 @@ public class KeyIndexedCountingSort {
             for (int i=0;i<length;i++){
                 items[i] = aux[i];
             }
-            
     }
 
 }

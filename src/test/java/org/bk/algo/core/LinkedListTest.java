@@ -99,7 +99,20 @@ public class LinkedListTest {
 		linkedList.insertAtEnd("003");
 		linkedList.insertAtEnd("004");
 		
-		assertThat(linkedList.kthFromEnd(3), is("002"));
+		assertThat(linkedList.kthFromEndIterative(3), is("002"));
 	}	
+	
+	@Test
+	public void testKthFromEndRecurs(){
+		LinkedList<String> linkedList = new LinkedList<String>();
+		linkedList.insertAtEnd("001");
+		linkedList.insertAtEnd("002");
+		linkedList.insertAtEnd("003");
+		linkedList.insertAtEnd("004");
+		
+		assertThat(linkedList.kthFromEndRecurs(3), is("002"));
+	}	
+	
+	
 	
 }

@@ -31,15 +31,3 @@ public class ShellSort {
 	}
 
 }
-//while (gap < numElements / 3) {
-//	gap = 3 * gap + 1;
-//}
-//
-//while (gap > 0) {
-//	for (int i = gap; i < numElements; i++) {
-//		for (int j = i; j >= gap && isLess(a[j], a[j - gap]); j -= gap) {
-//			exchange(a, j, j - gap);
-//		}
-//	}
-//	gap = gap / 3;
-//}
