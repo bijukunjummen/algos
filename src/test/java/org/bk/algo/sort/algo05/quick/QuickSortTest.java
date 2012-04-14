@@ -30,5 +30,12 @@ public class QuickSortTest {
         QuickSort.sort(arr);
         assertThat(arr, is(arrayContaining(SortFixtures.fixture3Expected())));
     }
+   
+   @Test
+   public void testForASmallArrayOfIntegersValues3(){
+        Integer[] arr = SortFixtures.fixture4();
+        QuickSort.sort(arr);
+        assertThat(arr, is(arrayContaining(SortFixtures.fixture4Expected())));
+    }
 
 }

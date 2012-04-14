@@ -1,40 +1,41 @@
-package org.bk.algo.sort.algo05.quick;
+package org.bk.algo.sort.algo08.radix;
 
-import static org.hamcrest.CoreMatchers.is;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
-import static org.junit.Assert.assertThat;
 
 import org.bk.algo.sort.SortFixtures;
 import org.junit.Test;
 
-public class QuickSort2Test {
+public class RadixSortTest {
 	
 	@Test
 	public void testForASmallArrayOfIntegers(){
 		Integer[] arr = SortFixtures.fixture1();
-		QuickSort2.sort(arr);
-		assertThat(arr, is(arrayContaining(SortFixtures.fixture1Expected())));
+		RadixSort.sort(arr);
+		assertThat(arr, arrayContaining(SortFixtures.fixture1Expected()));
 	}
 	
    @Test
    public void testForASmallArrayOfIntegersWithRepeatingValues(){
         Integer[] arr = SortFixtures.fixture2();
-        QuickSort2.sort(arr);
-        assertThat(arr, is(arrayContaining(SortFixtures.fixture2Expected())));
+        RadixSort.sort(arr);
+        assertThat(arr, arrayContaining(SortFixtures.fixture2Expected()));
     }
    
    @Test
    public void testForASmallArrayOfIntegersWithRepeatingValues2(){
         Integer[] arr = SortFixtures.fixture3();
-        QuickSort2.sort(arr);
-        assertThat(arr, is(arrayContaining(SortFixtures.fixture3Expected())));
+        RadixSort.sort(arr);
+        assertThat(arr, arrayContaining(SortFixtures.fixture3Expected()));
     }
    
    @Test
    public void testForASmallArrayOfIntegersValues3(){
         Integer[] arr = SortFixtures.fixture4();
-        QuickSort2.sort(arr);
-        assertThat(arr, is(arrayContaining(SortFixtures.fixture4Expected())));
+        RadixSort.sort(arr);
+        assertThat(arr, arrayContaining(SortFixtures.fixture4Expected()));
     }
-
+	
+	
 }

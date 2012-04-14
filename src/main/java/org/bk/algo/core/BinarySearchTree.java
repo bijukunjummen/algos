@@ -18,9 +18,9 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
     }
     
     private int getHeight(Node<K, V> node){
-    	if (node==null) return 0;
+    	if (node==null) return -1;
     	
-    	return Math.max(getHeight(node.left), getHeight(node.right));
+    	return Math.max(getHeight(node.left), getHeight(node.right))+1;
     }
  
     private V get(K key, Node<K, V> node) {

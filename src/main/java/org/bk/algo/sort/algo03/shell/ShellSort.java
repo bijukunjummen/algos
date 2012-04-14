@@ -17,7 +17,6 @@ public class ShellSort {
 			
 			gap = gap/3;
 		}
-
 	}
 
 	private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {

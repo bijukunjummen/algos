@@ -34,6 +34,8 @@ public class BinarySearchTreeTest {
         assertThat(bst.get(4), is("Foure"));
         assertThat(bst.size(), is(6));
         
+        System.out.println(bst.getHeight());
+        
     }
     
     

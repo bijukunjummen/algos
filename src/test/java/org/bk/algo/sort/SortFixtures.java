@@ -24,4 +24,13 @@ public class SortFixtures {
     public static Integer[] fixture3Expected(){
         return new Integer[]{0,1,2,3,5,7,8,8,9,9,10,10,11,12,16,23,32,32,35,54,89,112,203,211};
     }
+    
+    public static Integer[] fixture4(){
+        return new Integer[]{8,9};
+    }
+
+    public static Integer[] fixture4Expected(){
+        return new Integer[]{8,9};
+    }
+
 }
