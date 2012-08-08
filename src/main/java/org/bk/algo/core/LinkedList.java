@@ -4,9 +4,8 @@ import java.util.Iterator;
 
 
 public class LinkedList<T> implements Iterable<T>{
-	
-	private Node<T> first;
-	private Node<T> last;
+	private Node first;
+	private Node last;
 	private int size;
 	
 	public int getSize(){
@@ -15,11 +14,11 @@ public class LinkedList<T> implements Iterable<T>{
 	
 	public void insertAtBeginning(T item){
 		if (first==null){
-			first = new Node<T>(item, null, null);
+			first = new Node(item, null, null);
 			last = first;
 		}else{
-			Node<T> oldFirst = first;
-			first = new Node<T>(item, oldFirst, null);
+			Node oldFirst = first;
+			first = new Node(item, oldFirst, null);
 			oldFirst.previous = first;
 		}
 		size++;
@@ -27,11 +26,11 @@ public class LinkedList<T> implements Iterable<T>{
 	
 	public void insertAtEnd(T item){
 		if (last==null){
-			last = new Node<T>(item, null, null);
+			last = new Node(item, null, null);
 			first = last;
 		}else{
-			Node<T> oldLast = last;
-			last = new Node<T>(item, null, oldLast);
+			Node oldLast = last;
+			last = new Node(item, null, oldLast);
 			oldLast.next = last;
 		}
 		size++;
@@ -58,19 +57,19 @@ public class LinkedList<T> implements Iterable<T>{
 	}
 
 	public T kthFromEndIterative(int k){
-		Node<T> first = this.first;
-		Node<T> second = this.first;
+		Node a = this.first;
+		Node b = this.first;
 		
 		for (int i=0;i<k-1;i++){
-			second = second.next;
+			b = b.next;
 		}
 		
-		while (second.next!=null){
-			first = first.next;
-			second = second.next;
+		while(b.next!=null){
+			b=b.next;
+			a = a.next;
 		}
 		
-		return first.item;
+		return a.item;
 	}
 
 	private class IntWrapper{
@@ -81,30 +80,31 @@ public class LinkedList<T> implements Iterable<T>{
 		return kthFromEndRecurs(this.first, k, new IntWrapper()).item;
 	}
 	
-	
-	private Node<T> kthFromEndRecurs(Node<T> node, final int k, IntWrapper intWrapper){
-		if (node==null) return null;
-
-		Node<T> anode = kthFromEndRecurs(node.next, k, intWrapper);
-		intWrapper.value = intWrapper.value + 1;		
+	private Node kthFromEndRecurs(Node node, final int k, IntWrapper intWrapper){
+		if (node==null){
+			return null;
+		}
+		
+		Node anode = kthFromEndRecurs(node.next, k, intWrapper);
+		intWrapper.value = intWrapper.value + 1;
 		if (intWrapper.value==k){
 			return node;
 		}
 		return anode;
+		
 	}	
 	
-	private static class Node<T>{
-		T item; 
-		Node<T> next;
-		Node<T> previous;
+	private class Node{
+		T item;
+		Node next;
+		Node previous;
 		
-		Node(T item, Node<T> next, Node<T> previous){
+		public Node(T item, Node next, Node prev){
 			this.item = item;
 			this.next = next;
-			this.previous = previous;
+			this.previous = prev;
 		}
-	}
-
+	} 
 
 	@Override
 	public Iterator<T> iterator() {
@@ -117,7 +117,7 @@ public class LinkedList<T> implements Iterable<T>{
 	}
 	private class LstIterator implements Iterator<T>{
 
-		private Node<T> currNode;
+		private Node currNode;
 		
 		public LstIterator(){
 			currNode = LinkedList.this.first;
@@ -146,7 +146,7 @@ public class LinkedList<T> implements Iterable<T>{
 
 	private class ReverseIterator implements Iterator<T>{
 
-		private Node<T> currNode;
+		private Node currNode;
 		
 		public ReverseIterator(){
 			this.currNode = LinkedList.this.last;

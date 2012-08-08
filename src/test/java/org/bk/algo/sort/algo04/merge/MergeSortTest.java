@@ -16,5 +16,12 @@ public class MergeSortTest {
 		MergeSort.sort(arr);
 		assertThat(arr, is(arrayContaining(SortFixtures.fixture1Expected())));
 	}
+	
+	@Test
+	public void testForALargeArrayOfIntegers(){
+		Integer[] arr = SortFixtures.fixture65536();
+		MergeSort.sort(arr);
+		System.out.println(arr.length);
+	}
 
 }

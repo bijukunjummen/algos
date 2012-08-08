@@ -1,5 +1,11 @@
 package org.bk.algo.sort;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SortFixtures {
 	public static Integer[] fixture1(){
 		return new Integer[]{5,3,10,2000,15,9,2,1};
@@ -31,6 +37,21 @@ public class SortFixtures {
 
     public static Integer[] fixture4Expected(){
         return new Integer[]{8,9};
+    }
+    
+    public static Integer[] fixture65536(){
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(SortFixtures.class.getResourceAsStream("/65536.txt")));
+    	List<Integer> list = new ArrayList<>();
+    	try{
+    		String line = reader.readLine();
+    		while (line!=null){
+    			list.add(Integer.valueOf(line));
+    			line = reader.readLine();
+    		}
+    		return list.toArray(new Integer[0]);
+    	}catch(IOException ioException){
+    		throw new RuntimeException("List of Numbers Not loaded :" + ioException.getMessage());
+    	}
     }
 
 }

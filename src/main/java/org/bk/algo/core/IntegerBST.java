@@ -96,26 +96,24 @@ public class IntegerBST<V>{
     }
     
 
-    private static class Node<V>{
-        Integer key;
-        V value;
-        
-        Node<V> left;
-        Node<V> right;
-        
-        int size;
-        
-        public Node(Integer key, V value, int size){
-            this.key = key;
-            this.value = value;
-            this.size = size;
-        }
-        
-        
-        public String toString(){
-            return this.key + ":" + this.value;
-        }
-        
+    private static class Node<V> {
+    	Integer key;
+    	V value;
+    	int size;
+    	Node<V> left;
+    	Node<V> right;
+    	
+    	public Node(Integer key, V value, int size){
+    		this.key = key;
+    		this.value = value;
+    		this.size = size;
+    	}
+    	
+    	@Override
+    	public String toString(){
+    		return "key:" + this.key + ", value:" + this.value;
+    	}
+    	
     }
 }
 

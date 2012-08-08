@@ -5,18 +5,21 @@ public class BinarySearch {
 		int lo = 0;
 		int hi = arr.length - 1;
 		
-		while (lo<=hi){
-			int mid = lo + (hi - lo)/2;
-			int  compareVal = anItem.compareTo(arr[mid]);
-			if (compareVal < 0){
-				hi = mid - 1;
-			}else if (compareVal > 0){
-				lo = mid + 1;
-			}else{
+		while(lo<=hi){
+			int mid = lo + (hi-lo)/2;
+			int cmp = anItem.compareTo(arr[mid]);
+			
+			if (cmp==0){
 				return mid;
+			}else if (cmp>0){
+				lo = mid+1;
+			}else{
+				hi = mid-1;
 			}
 		}
 		return -1;
+		
+
 	}
 	
 	public static<T extends Comparable<? super T>> int recSearch(T[] arr, T anItem){

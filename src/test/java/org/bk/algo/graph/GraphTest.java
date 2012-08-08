@@ -46,10 +46,16 @@ public class GraphTest {
 
     @Test
     public void testDFS() {
-        DepthFirstSearch dfs = new DepthFirstSearch(graph, 3);
+        DepthFirstSearch dfs = new DepthFirstSearch(graph, 0);
         dfs.search();
     }
-
+    @Test
+    public void testDFSIterative() {
+        DepthFirstSearch dfs = new DepthFirstSearch(graph, 0);
+        
+        System.out.println("Iterative Search..");
+        dfs.iterativeSearch();
+    }
     @Test
     public void testBFS() {
         BreadthFirstSearch bfs = new BreadthFirstSearch(graph, 0);
