@@ -1,4 +1,4 @@
-package org.bk.algo.graph.weight;
+package org.bk.algo.digraph.weight;
 
 public class DirectedEdge {
     private int s;

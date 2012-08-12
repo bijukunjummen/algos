@@ -1,4 +1,4 @@
-package org.bk.algo.graph.directed;
+package org.bk.algo.digraph;
 
 import java.util.ArrayList;
 import java.util.List;

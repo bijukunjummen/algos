@@ -1,4 +1,4 @@
-package org.bk.algo.graph.weight;
+package org.bk.algo.digraph.weight;
 
 import org.bk.algo.core.Bag;
 
@@ -8,7 +8,8 @@ public class EdgeWeightedDigraph {
     private Bag<DirectedEdge>[] adj;
     
     
-    public EdgeWeightedDigraph(int verticeCount){
+    @SuppressWarnings("unchecked")
+	public EdgeWeightedDigraph(int verticeCount){
         this.verticeCount = verticeCount;
         this.edgeCount = 0;
         this.adj = (Bag<DirectedEdge>[])new Bag[this.verticeCount];
