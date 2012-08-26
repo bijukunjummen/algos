@@ -24,5 +24,21 @@ public class WeightedQuickUnionUFTest {
 		assertThat(uf.connected(0,1), is(false));
 		
 	}
+	
+	@Test
+	public void testUnionFind2() {
+		WeightedQuickUnionUF uf = new WeightedQuickUnionUF(10);
+		
+		uf.union(5,1);
+		uf.union(2,9);
+		uf.union(3,4);
+		uf.union(7,2);
+		uf.union(3,6);
+		uf.union(0,8);
+		uf.union(4,8);
+		uf.union(1,9);
+		uf.union(4,2);
+		
+	}
 
 }

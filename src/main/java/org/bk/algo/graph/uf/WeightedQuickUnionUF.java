@@ -1,5 +1,7 @@
 package org.bk.algo.graph.uf;
 
+import scala.actors.threadpool.Arrays;
+
 //Based on http://algs4.cs.princeton.edu/home/
 
 public class WeightedQuickUnionUF {
@@ -37,6 +39,11 @@ public class WeightedQuickUnionUF {
 			p=id[p];
 		}
 		return p;
+	}
+
+	@Override
+	public String toString(){
+		return Arrays.toString(id);
 	}
 
 }

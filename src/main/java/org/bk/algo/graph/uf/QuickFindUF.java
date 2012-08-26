@@ -1,5 +1,7 @@
 package org.bk.algo.graph.uf;
 
+import scala.actors.threadpool.Arrays;
+
 //Based on http://algs4.cs.princeton.edu/home/
 	
 public class QuickFindUF {
@@ -23,6 +25,11 @@ public class QuickFindUF {
 		for (int i=0;i<id.length;i++){
 			if (id[i]==pid) id[i]=qid;
 		}
+	}
+	
+	@Override
+	public String toString(){
+		return Arrays.toString(id);
 	}
 
 }

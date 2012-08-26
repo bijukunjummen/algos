@@ -18,7 +18,7 @@ public class MergeSortForkJoinTest {
 	
 	@Test
 	public void testForALargeArrayOfIntegers(){
-		Integer[] arr = SortFixtures.fixture65536();
+		Integer[] arr = SortFixtures.fixture1MillionRecords();
 		MergeSortForkJoin.sort(arr);
 	}
 

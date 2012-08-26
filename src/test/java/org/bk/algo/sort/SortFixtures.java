@@ -39,8 +39,8 @@ public class SortFixtures {
         return new Integer[]{8,9};
     }
     
-    public static Integer[] fixture65536(){
-    	BufferedReader reader = new BufferedReader(new InputStreamReader(SortFixtures.class.getResourceAsStream("/65536.txt")));
+    public static Integer[] fixture1MillionRecords(){
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(SortFixtures.class.getResourceAsStream("/1million.txt")));
     	List<Integer> list = new ArrayList<>();
     	try{
     		String line = reader.readLine();
