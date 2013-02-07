@@ -1,6 +1,7 @@
 package org.bk.algo.graph.uf;
 
-import scala.actors.threadpool.Arrays;
+import java.util.Arrays;
+
 
 //Based on http://algs4.cs.princeton.edu/home/
 	

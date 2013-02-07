@@ -5,7 +5,6 @@ import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.junit.Assert.assertThat;
 
 import org.bk.algo.sort.SortFixtures;
-import org.bk.algo.sort.algo04.merge.MergeSort;
 import org.junit.Test;
 
 public class MergeSortBottomUpTest {
@@ -32,6 +31,12 @@ public class MergeSortBottomUpTest {
         assertThat(arr[999991], is(999993723));
         assertThat(arr[999990], is(999992630));
 
+	}
+	
+	@Test
+	public void testBottomUp(){
+	    String[] anArr = new String[]{"U", "F", "A", "R", "D", "P", "G", "V", "J", "B"};
+	    MergeSortBottomUp.sort(anArr);
 	}
 
 }

@@ -21,4 +21,5 @@ public class Bag<T> implements Iterable<T>{
 	public Iterator<T> iterator() {
 		return this.holder.iterator();
 	}
+	
 }

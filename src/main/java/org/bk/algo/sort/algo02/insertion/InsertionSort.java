@@ -1,5 +1,6 @@
 package org.bk.algo.sort.algo02.insertion;
 
+
 public class InsertionSort {
     
     public static<T extends Comparable<? super T>> void sort(T[] a){
@@ -19,5 +20,4 @@ public class InsertionSort {
 	private static <T extends Comparable<? super T>> boolean isLess(T a, T b){
 		return a.compareTo(b) < 0;
 	}
-
 }

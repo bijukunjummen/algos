@@ -104,7 +104,25 @@ public class BinarySearchTreeTest {
         bst.checkBST();
     }    
 
-
+    @Test
+    public void testTraverseLevelOrder(){
+        BinarySearchTree<Integer, String> bst = new BinarySearchTree<Integer, String>();        
+        bst.put(45, "Three");
+        bst.put(60, "Three");
+        bst.put(62, "Three");
+        bst.put(43, "Three");
+        bst.put(19, "Three");
+        bst.put(69, "Three");
+        bst.put(23, "Three");
+        bst.put(74, "Three");
+        bst.put(21, "Three");
+        bst.put(83, "Three");
+        
+        
+        NodeCollectingVisitor<Integer, String> vst =  new NodeCollectingVisitor<Integer, String>();
+        bst.traverseLevelOrder(vst);
+        System.out.println(vst.getKeys());
+    }
 
     private static class NodeCollectingVisitor<K, V> implements Visitor<K, V>{
         

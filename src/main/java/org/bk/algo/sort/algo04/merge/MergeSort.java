@@ -14,7 +14,7 @@ public class MergeSort {
 		int mid = lo + (hi-lo)/2;
 		mergesort(a, helper, lo, mid);
 		mergesort(a, helper, mid+1, hi);
-		merge(a, helper, lo, mid, hi);		
+		merge(a, helper, lo, mid, hi);	
 	}
 
 	private static <T extends Comparable<? super T>> void merge(T[] a, T[] helper, int lo, int mid, int hi){

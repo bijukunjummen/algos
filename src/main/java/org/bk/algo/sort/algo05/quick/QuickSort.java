@@ -2,6 +2,7 @@ package org.bk.algo.sort.algo05.quick;
 
 
 
+
 public class QuickSort {
     public static <T extends Comparable<? super T>> void sort(T[] a) {
         quicksort(a, 0, a.length - 1);

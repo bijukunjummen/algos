@@ -35,24 +35,18 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
     }
     
     private Node<K, V> put(K key, V val, Node<K, V> node){
-        if (node==null){
-            return new Node<K, V>(key, val, 1);
-        }
+        if (node==null) return new Node<K, V>(key, val, 1);
         
         int cmp = key.compareTo(node.key);
-        
-        if (cmp==0){
+        if (cmp==0) {
             node.value = val;
-        }else if (cmp<0){
-            node.left =  put(key, val, node.left);
-        }else{
-            node.right =  put(key, val, node.right);
+        }else if (cmp < 0){
+            node.left = put(key, val, node.left);
+        }else if (cmp > 0){
+            node.right = put(key, val, node.right);
         }
-        
         node.size = size(node.left) + size(node.right) + 1;
-        
         return node;
-        
     }
     
     
@@ -127,7 +121,23 @@ public class BinarySearchTree<K extends Comparable<? super K>, V> {
         traversePostOrder(node.left, visitor);
         traversePostOrder(node.right, visitor);
         node.accept(visitor);        
-    }  
+    } 
+    
+    public void traverseLevelOrder(Visitor<K, V> visitor){
+        traverseLevelOrder(this.root, visitor);
+    }
+    
+    private void traverseLevelOrder(Node<K, V> node, Visitor<K, V> visitor){
+        Queue<Node<K, V>> queue = new Queue<Node<K, V>>();
+        queue.enqueue(node);
+        
+        while(!queue.isEmpty()){
+            Node<K, V> aNode = queue.dequeue();
+            aNode.accept(visitor);
+            if (aNode.left!=null) queue.enqueue(aNode.left);
+            if (aNode.right!=null) queue.enqueue(aNode.right);
+        }
+    }
     
     private int size(Node<K, V> node){
         if (node==null) return 0;

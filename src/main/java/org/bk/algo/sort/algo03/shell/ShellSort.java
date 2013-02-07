@@ -1,5 +1,6 @@
 package org.bk.algo.sort.algo03.shell;
 
+
 public class ShellSort {
 
 	
@@ -17,7 +18,7 @@ public class ShellSort {
 					exchange(arr, j, j-gap);
 				}
 			}
-			gap = gap/3;	
+			gap = gap/3;
 		}
 	}
 	
@@ -29,4 +30,6 @@ public class ShellSort {
 	private static <T extends Comparable<? super T>> boolean isLess(T a, T b) {
 		return a.compareTo(b) < 0;
 	}
+	
+
 }

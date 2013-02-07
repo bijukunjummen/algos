@@ -1,5 +1,8 @@
 package org.bk.algo.core;
 
+import java.util.Arrays;
+
+
 public class MaxPriorityQueue<T extends Comparable<? super T>> {
     T[] pq;
     int N=0;
@@ -43,10 +46,15 @@ public class MaxPriorityQueue<T extends Comparable<? super T>> {
     private void sink(int k){
     	while (2*k<=this.N){
     		int i = 2*k;
-    		if (i<2*k && isLess(i,i+1)) i=i+1;
+    		if (i < this.N && isLess(i,i+1)) i=i+1;
     		if (isLess(k, i)) exchange(k, i);
     		k=i;
     	}
+    }
+    
+    @Override
+    public String toString(){
+        return Arrays.toString(this.pq);
     }
 
 }

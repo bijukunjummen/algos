@@ -7,6 +7,5 @@ class LinkedListTest extends FunSuite {
 	  list.insertAtBeginning(10);
 	  list.insertAtBeginning(20);
 	  println(list.getSize())
-	  
 	}
 }
