@@ -20,7 +20,6 @@ public class MinPriorityQueue<T extends Comparable<? super T>> {
 	public void insert(T item){
 		pq[++this.size] = item;
 		swim(this.size);
-		
 	}
 	
 	private void swim(int v){

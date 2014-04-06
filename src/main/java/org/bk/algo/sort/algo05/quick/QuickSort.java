@@ -1,8 +1,6 @@
 package org.bk.algo.sort.algo05.quick;
 
 
-
-
 public class QuickSort {
     public static <T extends Comparable<? super T>> void sort(T[] a) {
         quicksort(a, 0, a.length - 1);
@@ -16,20 +14,19 @@ public class QuickSort {
     }
 
     private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi){
-    	int i=lo;
-    	int j=hi+1;
-    	T partitionItem = a[lo];
-    	while(true){
-    		while (isLess(a[++i], partitionItem)) if (i==hi) break;
-    		while (isLess(partitionItem, a[--j]))  if (j==lo) break;
-    		if (i>=j) break;
-    		exchange(a, i, j);
+    	int i = lo;
+    	
+    	for (int j=lo+1;j <= hi; j++) {
+    		if (isLess(a[j], a[lo])) {
+    			exchange(a, i + 1, j);
+    			i++;
+    		}
     	}
-    	exchange(a, j, lo);
-    	return j;
+    	exchange(a, i, lo);
+    	
+    	return i;
     	
     }
-
 
     private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {
         T temp = a[i];

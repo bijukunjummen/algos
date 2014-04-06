@@ -6,7 +6,6 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
 public class MinPriorityQueueTest {
-
     @Test
     public void testMinPriorityQueueWithSmallSetOfInts() {
         MinPriorityQueue<Integer> pq = new MinPriorityQueue<Integer>(20);
@@ -24,5 +23,4 @@ public class MinPriorityQueueTest {
         assertThat(pq.delAndGetMin(), is(equalTo(11)));
         assertThat(pq.delAndGetMin(), is(equalTo(19)));
     }
-
 }
