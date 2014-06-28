@@ -25,7 +25,6 @@ class Problem031Test extends FunSuite{
 						ways(a, c.tail, hist) ++ ways(a - coin, c, coin :: hist)
 					}
 				}
-				
 			}
 		}
 		

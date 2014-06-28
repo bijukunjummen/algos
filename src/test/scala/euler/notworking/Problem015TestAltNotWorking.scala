@@ -9,7 +9,7 @@ class Problem015TestNotWorking extends FunSuite with Solver {
   val grid = Grid(20, 20)
 
   test("Lattice paths") {
-    pathsToGoal
+    pathsFromStart.take(10).foreach(println)
   }
 }
 
