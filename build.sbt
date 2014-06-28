@@ -4,7 +4,7 @@ version := "1.0"
 
 organization := "org.bk.algos"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.1"
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.10-M2" % "test"
 
@@ -20,6 +20,6 @@ libraryDependencies += "org.hamcrest" % "hamcrest-core" % "1.2.1" % "test->defau
 
 libraryDependencies += "org.hamcrest" % "hamcrest-library" % "1.2.1" % "test->default"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test"
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.0" % "test"
 
 javaOptions += "-Xmx1G"
