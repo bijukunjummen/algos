@@ -6,16 +6,13 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class Problem002Test extends FunSuite{
-	test("Sum of even Fib upto 4 million") {
-	  val fibs = fibFrom(1, 2)
-	  
-	  val sum = fibs.takeWhile(_ <= 4000000).filter(_ % 2 == 0).sum
-	  
+	test("Sum of Fib upto 4 million") {
+	  val fibs = fibsFrom(1, 2)
+	  val sum = fibs.takeWhile(f => f <= 4000000l).filter( _ %2 == 0).sum
 	  assert(sum === 4613732)
-	  
 	}
 	
-	def fibFrom(a: Int, b: Int): Stream[Int] = {
-	  a #:: fibFrom(b, a + b)
+	def fibsFrom(a: Long, b: Long): Stream[Long] = {
+	  a #:: fibsFrom(b, a + b)
 	}
 }

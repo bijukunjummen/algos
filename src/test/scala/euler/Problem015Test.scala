@@ -18,7 +18,7 @@ class Problem015Test extends FunSuite {
   def fact(n1: Int, n2: Int ): BigInt = {
     def fact(res: BigInt, m1: Int, m2: Int): BigInt = {
       if (m1 <= m2) res
-      else fact(res*m1, m1 - 1, m2)
+      else fact(res * m1, m1 - 1, m2)
     }
     fact(1, n1, n2)
   }
