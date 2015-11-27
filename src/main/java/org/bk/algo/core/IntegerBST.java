@@ -10,23 +10,22 @@ public class IntegerBST<V>{
     }
     
     private Node<V> put(Node<V> node, Integer key, V value){
-        if (node==null){
-            return new Node<V>(key, value, 1);
+        if (node == null) {
+            return new Node<>(key, value, 1);
         }
-        
+
         int cmp = key.compareTo(node.key);
-        
-        if (cmp==0){
+
+        if (cmp == 0) {
             node.value = value;
-        }else if (cmp<0){
+        } else if (cmp < 0) {
             node.left = put(node.left, key, value);
-        }else{
+        } else {
             node.right = put(node.right, key, value);
         }
 
         node.size = size(node.left) + size(node.right) + 1;
         return node;
-        
     }
     
     public int size(){
@@ -34,7 +33,7 @@ public class IntegerBST<V>{
     }
     
     private int size(Node<V> node){
-        if (node==null) return 0;
+        if (node == null) return 0;
         
         return node.size;
     }
@@ -69,26 +68,26 @@ public class IntegerBST<V>{
     }
     
     public boolean isBalanced(){
-    	if (checkHeightAndBalance(this.root)==-1){
+    	if (checkHeightAndBalance(this.root) == -1){
     		return false;
     	}
     	return true;
     }
     
     private int checkHeightAndBalance(Node<V> node){
-    	if (node==null) return 0;
+    	if (node == null) return 0;
     	
     	int leftHeight = checkHeightAndBalance(node.left);
-    	if (leftHeight==-1){
+    	if (leftHeight == -1){
     		return -1;
     	}
     	
     	int rightHeight = checkHeightAndBalance(node.right);
     	
-    	if (rightHeight==-1){
+    	if (rightHeight == -1){
     		return -1;
     	}
-    	if (Math.abs(leftHeight-rightHeight)>1){
+    	if (Math.abs(leftHeight - rightHeight) > 1){
     		return -1;
     	}
     	

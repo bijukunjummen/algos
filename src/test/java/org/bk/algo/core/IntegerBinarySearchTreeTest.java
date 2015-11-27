@@ -9,7 +9,7 @@ public class IntegerBinarySearchTreeTest {
     
     @Test
     public void testBST(){
-        IntegerBST<String> bst = new IntegerBST<String>();        
+        IntegerBST<String> bst = new IntegerBST<>();
         bst.put(3, "Three");
         bst.put(2, "Two");
         bst.put(1, "One");

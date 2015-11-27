@@ -20,6 +20,6 @@ libraryDependencies += "org.hamcrest" % "hamcrest-core" % "1.2.1" % "test->defau
 
 libraryDependencies += "org.hamcrest" % "hamcrest-library" % "1.2.1" % "test->default"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.0" % "test"
+libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
 
 javaOptions += "-Xmx1G"

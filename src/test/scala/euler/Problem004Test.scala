@@ -14,6 +14,8 @@ class Problem004Test extends FunSuite{
 	  } yield (i * j)
 	  assert(ps.max === 906609)
 	}
+
+
 	
 	def isPalindrome(i: Long) =  {
 	  i.toString == i.toString.reverse

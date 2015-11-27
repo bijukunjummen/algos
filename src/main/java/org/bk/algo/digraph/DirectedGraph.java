@@ -34,7 +34,4 @@ public class DirectedGraph {
 	public List<Integer> getEdges(int v){
 		return this.adj.get(v);
 	}
-	
-	
-
 }

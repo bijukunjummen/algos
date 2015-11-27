@@ -61,5 +61,4 @@ public class GraphTest {
         BreadthFirstSearch bfs = new BreadthFirstSearch(graph, 0);
         bfs.search();
     }
-
 }

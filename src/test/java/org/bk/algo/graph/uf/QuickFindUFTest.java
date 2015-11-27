@@ -19,7 +19,8 @@ public class QuickFindUFTest {
 		uf.union(0,5);
 		uf.union(7,9);
 		uf.union(1,9);
-		
+
+
 		assertThat(uf.connected(0,6), is(true));
 		assertThat(uf.connected(1,9), is(true));
 		assertThat(uf.connected(0,1), is(false));
