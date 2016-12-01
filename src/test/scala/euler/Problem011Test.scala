@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem011Test extends FunSuite{
   
   test("Largest product in a grid") {

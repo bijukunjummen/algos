@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem004Test extends FunSuite{
 	test("Palindrome with 3 digit") {
 	  val ps = for {

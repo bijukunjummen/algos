@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem017Test extends FunSuite {
 	test("Number Letter Count In Thousands") {
 	  println(verbalize(2311))

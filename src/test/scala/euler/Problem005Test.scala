@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem005Test extends FunSuite{
 	test("Smallest multiple") {
 	  val o = from(21).iterator.find(isDivisibleByRange(_, Range(2, 21)))

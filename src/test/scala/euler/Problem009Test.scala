@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem009Test extends FunSuite {
   test("Special Pythagorean triplet") {
     val l = for {

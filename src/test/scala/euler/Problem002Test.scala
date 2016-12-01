@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem002Test extends FunSuite{
 	test("Sum of Fib upto 4 million") {
 	  val fibs = fibsFrom(1, 2)

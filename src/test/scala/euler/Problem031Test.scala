@@ -1,10 +1,7 @@
 package euler
 
-import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem031Test extends FunSuite{
 	test("UK Coins test") {
 	  val cointypes = List(1, 2, 5, 10, 20, 50, 100, 200)

@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem007Test extends FunSuite{
 	test("10001st prime") {
 	  val l = nextPrime(2).take(10001).takeRight(1).toList

@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem012Test extends FunSuite {
   test("Highly divisible triangular number") {
     val o = nextTriangularNumber(1).iterator.find(divisorsOf(_).size > 500)

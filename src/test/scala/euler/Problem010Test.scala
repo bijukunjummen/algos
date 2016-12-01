@@ -1,10 +1,7 @@
 package euler
 
 import org.scalatest.FunSuite
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem010Test extends FunSuite{
   test("Summation of primes") {
     val p = nextPrime(2).iterator.takeWhile(_ < 2000000).foldLeft(0l)(_ + _)

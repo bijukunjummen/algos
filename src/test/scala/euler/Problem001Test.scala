@@ -1,10 +1,7 @@
 package euler
 
-import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class Problem001Test extends FunSuite{
 	test("Multiples of 3 or 5") {
 	  val m3or5 = for {
