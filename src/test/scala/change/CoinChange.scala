@@ -6,6 +6,7 @@ class CoinChange extends FunSuite {
 
   test("countChange: example given in instructions") {
     assert(countChange(4,List(1,2)) === 3)
+    println(countChangeWithPath(4, List(1, 2), Nil))
   }
 
   test("countChange: sorted CHF") {
@@ -14,6 +15,7 @@ class CoinChange extends FunSuite {
 
   test("countChange: no pennies") {
     assert(countChange(301,List(5,10,20,50,100,200,500)) === 0)
+//    println(countChangeWithPath(300, List(5,10,20,50,100,200,500), Nil))
   }
 
   test("countChange: unsorted CHF") {
@@ -29,6 +31,20 @@ class CoinChange extends FunSuite {
       coins match {
         case Nil => 0
         case h :: t => countChange(money - h, coins) + countChange(money, t)
+      }
+    }
+  }
+
+  type CoinPath = List[Int]
+
+  def countChangeWithPath(money: Int, coins: List[Int], history: CoinPath): List[CoinPath] = {
+    if (money < 0) List[CoinPath]()
+    else if (money == 0) {
+      List(history)
+    } else {
+      coins match {
+        case Nil => List[CoinPath]()
+        case h :: t => countChangeWithPath(money - h, coins, h :: history) ++ countChangeWithPath(money, t, history)
       }
     }
   }

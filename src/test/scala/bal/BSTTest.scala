@@ -14,7 +14,5 @@ class BSTTest extends FunSuite {
     assert(bst.get(2) === Some("Two"))
     assert(bst.get(3) === Some("Three"))
     assert(bst.get(10) === None)
-
-    List(1,2,3).sum
   }
 }

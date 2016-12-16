@@ -11,6 +11,7 @@ class SingleTests extends FunSpec {
       val s = Single.just("one")
       val sub = TestSubscriber.create[String]()
       s.subscribe(sub)
+      sub.awaitTerminalEvent()
       sub.assertCompleted()
       sub.assertValue("one")
     }
@@ -19,6 +20,7 @@ class SingleTests extends FunSpec {
       val s = Single.error(new RuntimeException)
       val sub = TestSubscriber.create[String]()
       s.subscribe(sub)
+      sub.awaitTerminalEvent()
       sub.assertError(classOf[RuntimeException])
     }
 
