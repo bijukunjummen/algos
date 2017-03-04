@@ -6,3 +6,4 @@ target/
 .worksheet
 .worksheet/
 .idea/
+.DS_Store

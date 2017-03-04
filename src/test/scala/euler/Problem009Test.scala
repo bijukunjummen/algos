@@ -11,7 +11,7 @@ class Problem009Test extends FunSuite {
       if (a * a + b * b == c * c)
       if (a + b + c == 1000)
     } yield (a, b, c)
-    
+
     l match {
       case y +: ys => y match {
         case (a, b, c) => println(a * b * c)

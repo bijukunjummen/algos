@@ -25,7 +25,7 @@ class SingleTests extends FunSpec {
     }
 
     it("should map the value to a new value") {
-      val s:Single[Int] = Single.just(1)
+      val s: Single[Int] = Single.just(1)
       val s2 = s.map(_ * 2)
     }
   }

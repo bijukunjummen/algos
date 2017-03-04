@@ -2,57 +2,58 @@ package euler
 
 import org.scalatest.FunSuite
 
-class Problem011Test extends FunSuite{
-  
+class Problem011Test extends FunSuite {
+
   test("Largest product in a grid") {
     val g = grid()
     val mList = for {
       r <- 0 to 19
       c <- 0 to 19
-    } yield(max(mult(itemsAcross(g, r, c)), mult(itemsBelow(g, r, c)), mult(itemsDiag(g, r, c)), mult(itemsDiagUp(g, r, c))))
-    
-    val maxEntry = mList.reduceLeft((a:Int, b:Int) => if (a > b) a else b)
+    } yield (max(mult(itemsAcross(g, r, c)), mult(itemsBelow(g, r, c)), mult(itemsDiag(g, r, c)), mult(itemsDiagUp(g, r, c))))
+
+    val maxEntry = mList.reduceLeft((a: Int, b: Int) => if (a > b) a else b)
     println(maxEntry)
   }
-  
 
-  def itemsAcross(g: Array[Array[Int]], r: Int, c: Int)  = {
+
+  def itemsAcross(g: Array[Array[Int]], r: Int, c: Int) = {
     if (c <= g(0).length - 1 - 3) {
-      List(g(r)(c), g(r)(c+1), g(r)(c+2), g(r)(c+3))
-    }else List()
+      List(g(r)(c), g(r)(c + 1), g(r)(c + 2), g(r)(c + 3))
+    } else List()
   }
-  
-  def itemsBelow(g: Array[Array[Int]], r: Int, c: Int)  = {
+
+  def itemsBelow(g: Array[Array[Int]], r: Int, c: Int) = {
     if (r <= g.length - 1 - 3) {
-      List(g(r)(c), g(r+1)(c), g(r+2)(c), g(r+3)(c))
-    }else List()
+      List(g(r)(c), g(r + 1)(c), g(r + 2)(c), g(r + 3)(c))
+    } else List()
   }
-  
+
   def itemsDiag(g: Array[Array[Int]], r: Int, c: Int) = {
     if ((c <= g(0).length - 1 - 3) && (r <= g.length - 1 - 3)) {
-      List(g(r)(c), g(r+1)(c+1), g(r+2)(c+2), g(r+3)(c+3))
-    }else List()
+      List(g(r)(c), g(r + 1)(c + 1), g(r + 2)(c + 2), g(r + 3)(c + 3))
+    } else List()
   }
-  
-  def itemsDiagUp(g:Array[Array[Int]], r: Int, c: Int) = {
+
+  def itemsDiagUp(g: Array[Array[Int]], r: Int, c: Int) = {
     if (r >= 3 && c <= (g(0).length - 1 - 3)) {
-      List(g(r)(c), g(r-1)(c + 1), g(r-2)(c+2), g(r-3)(c+3))
-    }else List()
+      List(g(r)(c), g(r - 1)(c + 1), g(r - 2)(c + 2), g(r - 3)(c + 3))
+    } else List()
   }
-  
+
   def mult(l: List[Int]): Int = {
     l match {
       case Nil => 0
       case _ => l.reduceLeft(_ * _)
     }
   }
-  
+
   def max(a: Int*) = {
     a.max
   }
+
   def grid() = {
-    val gridtext = 
-		"""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+    val gridtext =
+      """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 		49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 		81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 		52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -71,7 +72,7 @@ class Problem011Test extends FunSuite{
 		04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 		20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 		20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-		01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48""";  
+		01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48""";
     val lines = gridtext.split('\n');
     val g = for {
       l1 <- lines
@@ -79,6 +80,6 @@ class Problem011Test extends FunSuite{
     g
 
   }
-  
+
 
 }
