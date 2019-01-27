@@ -14,7 +14,7 @@ public class EdgeWeightedDigraph {
         this.edgeCount = 0;
         this.adj = (Bag<DirectedEdge>[])new Bag[this.verticeCount];
         for (int i=0;i<this.verticeCount;i++){
-            adj[i] = new Bag<DirectedEdge>();
+            adj[i] = new Bag<>();
         }
     }
     

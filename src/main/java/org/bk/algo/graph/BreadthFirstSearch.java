@@ -25,7 +25,7 @@ public class BreadthFirstSearch {
     }
     
     private void search(int v){
-        Queue<Integer> vertices = new Queue<Integer>();
+        Queue<Integer> vertices = new Queue<>();
         vertices.enqueue(v);
         marked.set(v);
         
