@@ -11,7 +11,7 @@ class PouringTest {
         val initialState = list(0, 0)
         val pouring = Pouring(capacity, initialState)
 
-        pouring.solution(list(0, 6)).take(1).forEach { println(it) }
+        pouring.solution(list(0, 6)).take(2).forEach { println(it) }
 
     }
 
@@ -21,7 +21,7 @@ class PouringTest {
         val initialState = list(12, 0, 0)
         val pouring = Pouring(capacity, initialState)
 
-        pouring.solution(list(6, 6, 0)).take(1).forEach { println(it) }
+        pouring.solution(list(6, 6, 0)).take(2).forEach { println(it) }
 
     }
 }

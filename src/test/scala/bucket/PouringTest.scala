@@ -13,7 +13,7 @@ class PouringTest extends FunSpec {
     it("should work for 2 glasses") {
       val p = Pouring(Vector(4, 9), Vector(0, 0))
 
-      p.solution(Vector(0, 6)).take(3).foreach(println)
+      p.solution(Vector(0, 6)).take(1).foreach(println)
     }
 
   }
