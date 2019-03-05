@@ -8,7 +8,13 @@ import io.vavr.kotlin.list
 import io.vavr.kotlin.toVavrList
 import kotlin.math.min
 
-typealias State = List<Int>
+data class Cup(val level: Int, val capacity: Int) {
+    override fun toString(): String {
+        return "Cup($level/$capacity)"
+    }
+}
+
+typealias State = List<Cup>
 
 interface Move {
     fun change(state: State): State
@@ -16,18 +22,19 @@ interface Move {
 
 data class Empty(val glass: Int) : Move {
     override fun change(state: State): State {
-        return state.update(glass, 0)
+        val cup = state[glass]
+        return state.update(glass, cup.copy(level = 0))
     }
 
     override fun toString(): String {
         return "Empty($glass)"
     }
-
 }
 
-data class Fill(val glass: Int, val capacity: List<Int>) : Move {
+data class Fill(val glass: Int) : Move {
     override fun change(state: State): State {
-        return state.update(glass, capacity[glass])
+        val cup = state[glass]
+        return state.update(glass, cup.copy(level = cup.capacity))
     }
 
     override fun toString(): String {
@@ -35,13 +42,15 @@ data class Fill(val glass: Int, val capacity: List<Int>) : Move {
     }
 }
 
-data class Pour(val from: Int, val to: Int, val capacity: List<Int>) : Move {
+data class Pour(val from: Int, val to: Int) : Move {
     override fun change(state: State): State {
-        val amount = min(state[from], capacity[to] - state[to])
+        val cupFrom = state[from]
+        val cupTo = state[to]
+        val amount = min(cupFrom.level, cupTo.capacity - cupTo.level)
 
         return state
-                .update(from, state[from] - amount)
-                .update(to, state[to] + amount)
+                .update(from, cupFrom.copy(cupFrom.level - amount))
+                .update(to, cupTo.copy(level = cupTo.level + amount))
     }
 
     override fun toString(): String {
@@ -49,29 +58,30 @@ data class Pour(val from: Int, val to: Int, val capacity: List<Int>) : Move {
     }
 }
 
-data class Path(val history: List<Move>, val endState: State) {
-    fun extend(move: Move) = Path(history.prepend(move), move.change(endState))
+data class Path(val initialState: pour.State, val endState: State, val history: List<Move>) {
+    fun extend(move: Move) = Path(initialState, move.change(endState), history.prepend(move))
 
     override fun toString(): String {
         return history.reverse().mkString(" ") + " ---> " + endState
     }
 }
 
-class Pouring(val capacity: List<Int>, val initialState: State) {
+class Pouring(private val initialState: State) {
     private fun allMoves(): List<Move> {
-        val emptyMoves: List<Move> = (0 until capacity.length()).map { Empty(it) }.toVavrList()
-        val fillMoves: List<Move> = (0 until capacity.length()).map { Fill(it, capacity) }.toVavrList()
-        val pourMoves: List<Move> = (0 until capacity.length()).flatMap { from ->
-            (0 until capacity.length()).filter { to -> from != to }.map { to ->
-                Pour(from, to, capacity)
+        val count = initialState.length()
+        val emptyMoves: List<Move> = (0 until count).map { Empty(it) }.toVavrList()
+        val fillMoves: List<Move> = (0 until count).map { Fill(it) }.toVavrList()
+        val pourMoves: List<Move> = (0 until count).flatMap { from ->
+            (0 until initialState.length()).filter { to -> from != to }.map { to ->
+                Pour(from, to)
             }
         }.toVavrList()
 
         return emptyMoves.appendAll(fillMoves).appendAll(pourMoves)
     }
 
-    val moves = allMoves()
-    val initialPath = Path(list(), initialState)
+    private val moves = allMoves()
+    private val initialPath = Path(initialState, initialState, list())
 
     fun from(paths: Set<Path>, explored: Set<State>): Stream<Set<Path>> {
         if (paths.isEmpty) {
@@ -86,10 +96,10 @@ class Pouring(val capacity: List<Int>, val initialState: State) {
             return Stream.cons(paths) { from(more, explored.addAll(more.map { it.endState })) }
         }
     }
+
     val pathSets = from(hashSet(initialPath), hashSet())
 
     fun solution(target: State): Stream<Path> {
-        return pathSets.flatMap { it }.filter{ path -> path.endState == target}
+        return pathSets.flatMap { it }.filter { path -> path.endState == target }
     }
 }
-
