@@ -1,35 +1,37 @@
 package org.bk.algo.graph;
 
-import org.bk.algo.core.Bag;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
     private final int v;
-    
-    private Bag<Integer>[] adj;
-    
-    public Graph(int v){
+
+    private List<Integer>[] adj;
+
+    public Graph(int v) {
         this.v = v;
-        this.adj = (Bag<Integer>[])new Bag[v];
-        
-        for (int i=0;i<v;i++){
-            this.adj[i] = new Bag<>();
+        this.adj = (List<Integer>[]) new List[v];
+
+        for (int i = 0; i < v; i++) {
+            this.adj[i] = new ArrayList<>();
         }
     }
-    
-    public void addEdge(int v, int w){
+
+    public void addEdge(int v, int w) {
         this.adj[v].add(w);
     }
-    
-    public int degree(int v){
+
+    public int degree(int v) {
         return this.adj[v].size();
     }
-    
-    public int verticeCount(){
+
+    public int verticeCount() {
         return this.v;
     }
-    
-    public Bag<Integer> adj(int v){
+
+    public List<Integer> adj(int v) {
         return this.adj[v];
     }
-    
+
 }

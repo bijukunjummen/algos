@@ -1,20 +1,22 @@
 package org.bk.algo.digraph.weight;
 
-import org.bk.algo.core.Bag;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EdgeWeightedDigraph {
     private final int verticeCount;
     private int edgeCount;
-    private Bag<DirectedEdge>[] adj;
+    private List<DirectedEdge>[] adj;
     
     
     @SuppressWarnings("unchecked")
 	public EdgeWeightedDigraph(int verticeCount){
         this.verticeCount = verticeCount;
         this.edgeCount = 0;
-        this.adj = (Bag<DirectedEdge>[])new Bag[this.verticeCount];
+        this.adj = (List<DirectedEdge>[])new List[this.verticeCount];
         for (int i=0;i<this.verticeCount;i++){
-            adj[i] = new Bag<>();
+            adj[i] = new ArrayList<>();
         }
     }
     

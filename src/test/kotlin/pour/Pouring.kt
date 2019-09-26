@@ -58,7 +58,7 @@ data class Pour(val from: Int, val to: Int) : Move {
     }
 }
 
-data class Path(val initialState: pour.State, val endState: State, val history: List<Move>) {
+data class Path(val initialState: State, val endState: State, val history: List<Move>) {
     fun extend(move: Move) = Path(initialState, move.change(endState), history.prepend(move))
 
     override fun toString(): String {

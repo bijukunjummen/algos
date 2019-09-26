@@ -24,26 +24,24 @@ class PouringTest {
         val initialState = list(Cup(0, 4), Cup(0, 9))
         val pouring = Pouring(initialState)
         println("strict digraph G {")
-        pouring.pathSets.take(3)
-                .forEach { paths ->
-                    paths.forEach { path ->
+        pouring.solution(list(Cup(0, 4), Cup(6, 9))).take(1)
+//                .forEach { paths ->
+                .forEach { path ->
                         val movesAndStateForPath = getMovesAndStateForPath(path, initialState)
-                        if (!movesAndStateForPath.isEmpty) {
-                            val moveAndState = movesAndStateForPath.last()
+                    movesAndStateForPath.forEach { moveAndState ->
                             val move = moveAndState._1
                             val states = moveAndState._2
                             val from = states._1
                             val to = states._2
                             println("\"$from\" -> \"$to\" [label=\"$move\"]")
-
                         }
                     }
-                }
+//                }
         println("}")
     }
 
     fun getMovesAndStateForPath(path: Path, initialState: State): List<Tuple2<Move, Tuple2<State, State>>> {
-        val res = path.history.reverse().foldLeft(Tuple.of(List.empty<Tuple2<State, State>>(), initialState)) { tup, move ->
+        val res: Tuple2<List<Tuple2<State, State>>, State> = path.history.reverse().foldLeft(Tuple.of(List.empty<Tuple2<State, State>>(), initialState)) { tup, move ->
             val oldState = tup._2
             val newState = move.change(oldState)
 

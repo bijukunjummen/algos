@@ -1,12 +1,14 @@
 package org.bk.algo.graph;
 
-import org.bk.algo.core.Bag;
 import org.bk.algo.core.Stack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EdgeWeightedGraph {
     private final int V;
     private int E;
-    private Bag<Edge>[] adj;
+    private List<Edge>[] adj;
     
    /**
      * Create an empty edge-weighted graph with V vertices.
@@ -15,9 +17,9 @@ public class EdgeWeightedGraph {
         if (V < 0) throw new RuntimeException("Number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
-        adj = (Bag<Edge>[]) new Bag[V];
+        adj = (List<Edge>[]) new List[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new Bag<Edge>();
+            adj[v] = new ArrayList<>();
         }
     }
 
@@ -99,7 +101,7 @@ public class EdgeWeightedGraph {
      * <tt>for (Edge e : graph.edges())</tt>.
      */
     public Iterable<Edge> edges() {
-        Bag<Edge> list = new Bag<Edge>();
+        List<Edge> list = new ArrayList<>();
         for (int v = 0; v < V; v++) {
             int selfLoops = 0;
             for (Edge e : adj(v)) {

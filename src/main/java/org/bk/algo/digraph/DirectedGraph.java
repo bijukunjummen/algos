@@ -11,9 +11,9 @@ public class DirectedGraph {
 	
 	public DirectedGraph(int v){
 		this.v = v;
-		this.adj = new ArrayList<List<Integer>>();
+		this.adj = new ArrayList<>();
 		for (int i=0;i<this.v;i++){
-			this.adj.add(new ArrayList<Integer>());
+			this.adj.add(new ArrayList<>());
 		}
 	}
 	
