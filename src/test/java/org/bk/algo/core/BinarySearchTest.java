@@ -9,7 +9,7 @@ public class BinarySearchTest {
 
     @Test
     public void testSearchWithASmallIntegerArray() {
-        Integer[] anArr = { 1, 2, 3, 5, 9, 10, 15, 2000 };
+        Integer[] anArr = {1, 2, 3, 5, 9, 10, 15, 2000};
         assertThat(BinarySearch.search(anArr, 9), is(4));
         assertThat(BinarySearch.search(anArr, 1), is(0));
         assertThat(BinarySearch.search(anArr, 2), is(1));
@@ -24,7 +24,7 @@ public class BinarySearchTest {
 
     @Test
     public void testSearchWithASmallIntegerArrayAndRecursiveSearch() {
-        Integer[] anArr = { 1, 2, 3, 5, 9, 10, 15, 2000 };
+        Integer[] anArr = {1, 2, 3, 5, 9, 10, 15, 2000};
         assertThat(BinarySearch.recSearch(anArr, 9), is(4));
         assertThat(BinarySearch.recSearch(anArr, 1), is(0));
         assertThat(BinarySearch.recSearch(anArr, 2), is(1));
@@ -36,5 +36,13 @@ public class BinarySearchTest {
         assertThat(BinarySearch.recSearch(anArr, 20), is(-1));
 
     }
-    
+
+    @Test
+    public void testSearchWithASmallIntegerArrayAndRecursiveSearch2() {
+        Integer[] anArr = {0, 3};
+        assertThat(BinarySearch.recSearch(anArr, 3), is(1));
+        assertThat(BinarySearch.recSearch(anArr, 0), is(0));
+
+    }
+
 }

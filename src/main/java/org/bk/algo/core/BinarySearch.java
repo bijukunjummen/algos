@@ -5,16 +5,16 @@ public class BinarySearch {
         int lo = 0;
         int hi = arr.length - 1;
 
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
+        while(lo <= hi) {
+            int mid = lo + (hi - lo)/2;
             int cmp = anItem.compareTo(arr[mid]);
 
             if (cmp == 0) {
                 return mid;
-            } else if (cmp > 0) {
-                lo = mid + 1;
-            } else {
+            } else if (cmp < 0) {
                 hi = mid - 1;
+            } else {
+                lo = mid + 1;
             }
         }
         return -1;

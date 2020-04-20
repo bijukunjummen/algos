@@ -13,26 +13,25 @@ public class QuickSort {
         quicksort(a, j + 1, hi);
     }
 
-    private static <T extends Comparable<? super T>> int partition(T[] a, final int lo, final int hi) {
-        int i = lo;
-
-        for (int j = lo + 1; j <= hi; j++) {
-            if (isLess(a[j], a[lo])) {
-                exchange(a, i + 1, j);
-                i++;
-            }
+    private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi) {
+        int i = lo, j = hi + 1;
+        final T p = a[lo];
+        while (true) {
+            while (isLess(a[++i], p)) if (i == hi) break;
+            while (isLess(p, a[--j])) if (j == lo) break;
+            if (i >= j) break;
+            exchange(a, i, j);
         }
-        exchange(a, i, lo);
-
-        return i;
-
+        exchange(a, lo, j);
+        return j;
     }
 
-    private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int min) {
+    private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int j) {
         T temp = a[i];
-        a[i] = a[min];
-        a[min] = temp;
+        a[i] = a[j];
+        a[j] = temp;
     }
+
 
     private static <T extends Comparable<? super T>> boolean isLess(T a, T b) {
         return a.compareTo(b) < 0;

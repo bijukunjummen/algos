@@ -30,12 +30,13 @@ public class NextNodeTest {
         if (node == null) {
             return null;
         }
-        int cmp = k - node.key;
-        if (cmp >= 0) {
+
+        if (k >= node.key) {
             return nextNode(node.right, k);
         }
 
-        Node t= nextNode(node.left, k);
+        Node t = nextNode(node.left, k);
+
         if (t != null) {
             return t;
         }

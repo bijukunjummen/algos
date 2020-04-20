@@ -3,7 +3,7 @@ package org.bk.algo.general;
 import java.util.ArrayList;
 import java.util.List;
 
-class GFG {
+class BoggleBoard {
     static final String dictionary[] = {"GEEKS", "FOR", "QUIZ", "GUQ", "EE"};
     static final int n = dictionary.length;
     static final int M = 3, N = 3;
