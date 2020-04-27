@@ -16,7 +16,7 @@ public class WordUtils {
         }
         Set<String> aSet = new HashSet<>();
         for (int i = 0; i < word.length(); i++) {
-            aSet.addAll(allAnagrams(prefix + word.charAt(i), word.substring(0, i) + word.substring(i + 1, word.length())));
+            aSet.addAll(allAnagrams(prefix + word.charAt(i), word.substring(0, i) + word.substring(i + 1)));
         }
         return aSet;
     }
