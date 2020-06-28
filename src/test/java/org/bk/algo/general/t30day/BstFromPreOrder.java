@@ -6,15 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
 
 //[8,5,1,7,10,12]
 class BstFromPreOrder {
@@ -49,4 +40,15 @@ class BstFromPreOrder {
         assertThat(tree.right.left).isNull();
         assertThat(tree.right.right.val).isEqualTo(12);
     }
+
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
 }

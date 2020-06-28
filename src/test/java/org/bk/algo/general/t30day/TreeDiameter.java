@@ -14,8 +14,8 @@ class TreeDiameter {
     public int diameterOfBinaryTreeComparing(TreeNode node) {
         if (node == null) return 0;
         int atRoot = diameterOfBinaryTreeAt(node);
-        int inLeft = node.left != null ? diameterOfBinaryTreeComparing(node.left) : 0;
-        int inRight = node.right != null ? diameterOfBinaryTreeComparing(node.right) : 0;
+        int inLeft = node.left != null ? diameterOfBinaryTree(node.left) : 0;
+        int inRight = node.right != null ? diameterOfBinaryTree(node.right) : 0;
         return Math.max(atRoot, Math.max(inLeft, inRight));
     }
 
