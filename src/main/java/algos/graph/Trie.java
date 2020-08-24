@@ -16,6 +16,9 @@ public class Trie {
     }
 
     private String get(Node node, String key, int depth) {
+        if (node == null) {
+            return null;
+        }
         if (key.length() == depth) {
             return node.value;
         }

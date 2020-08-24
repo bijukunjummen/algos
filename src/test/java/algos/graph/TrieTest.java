@@ -13,6 +13,7 @@ class TrieTest {
 
         assertThat(trie.get("she")).isEqualTo("val1");
         assertThat(trie.get("sells")).isEqualTo("val2");
+        assertThat(trie.get("abc")).isNull();
 
     }
 }
