@@ -2,67 +2,38 @@ package org.bk.algo.general.t30djune;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 class VerticalOrderTraversal {
-    public List<List<Integer>> verticalTraversal(TreeNode root) {
-        TreeMap<Integer, List<TreeNodeAndIndex>> treeMap =
-                new TreeMap<>();
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        TreeMap<Integer, List<Integer>> sortedMap = new TreeMap<>();
+        traverseBfsAndBuild(sortedMap, root);
 
-        Queue<TreeNodeAndIndex> queue = new ArrayDeque<>();
+        return sortedMap.values().stream().collect(Collectors.toList());
 
-        queue.add(new TreeNodeAndIndex(root, new Coord(0, 0)));
+    }
+
+    private void traverseBfsAndBuild(TreeMap<Integer, List<Integer>> sortedMap, TreeNode root) {
+        if (root == null) return;
+
+        Queue<NodeAndPosition> queue = new ArrayDeque<>();
+        queue.add(new NodeAndPosition(root, 0));
+
         while (!queue.isEmpty()) {
-            TreeNodeAndIndex nodeAndIndex = queue.poll();
-            TreeNode node = nodeAndIndex.treeNode;
-            Coord coord = nodeAndIndex.coord;
+            NodeAndPosition current = queue.poll();
+            TreeNode node = current.node;
+            int position = current.position;
+            sortedMap.computeIfAbsent(position, (p) -> new ArrayList<>());
+            sortedMap.get(position).add(node.val);
 
-            treeMap.computeIfAbsent(nodeAndIndex.coord.x,
-                    (k) -> new ArrayList<>());
-            treeMap.get(nodeAndIndex.coord.x).add(nodeAndIndex);
-
-            if (node.left != null) queue.add(new TreeNodeAndIndex(node.left, new Coord(coord.x - 1, coord.y - 1)));
-            if (node.right != null) queue.add(new TreeNodeAndIndex(node.right, new Coord(coord.x + 1, coord.y - 1)));
-        }
-        return treeMap
-                .values()
-                .stream()
-                .map(treeSet ->
-                        treeSet
-                                .stream()
-                                .sorted(Comparator
-                                        .comparingInt((TreeNodeAndIndex treNodeAndIndex) -> treNodeAndIndex.coord.y)
-                                        .reversed()
-                                        .thenComparingInt(treeNodeAndIndex -> treeNodeAndIndex.treeNode.val))
-                                .map(treeNodeAndIndex -> treeNodeAndIndex.treeNode.val)
-                                .collect(Collectors.toList()))
-                .collect(Collectors.toList());
-    }
-
-    private static class TreeNodeAndIndex {
-        TreeNode treeNode;
-        Coord coord;
-
-        TreeNodeAndIndex(TreeNode treeNode, Coord coord) {
-            this.treeNode = treeNode;
-            this.coord = coord;
+            if (node.left != null) queue.add(new NodeAndPosition(node.left, position - 1));
+            if (node.right != null) queue.add(new NodeAndPosition(node.right, position + 1));
         }
     }
-
-    private static class Coord {
-        int x;
-        int y;
-
-        public Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
 
     private static class TreeNode {
         int val;
@@ -71,6 +42,17 @@ class VerticalOrderTraversal {
 
         TreeNode(int x) {
             val = x;
+        }
+    }
+
+
+    static class NodeAndPosition {
+        TreeNode node;
+        int position;
+
+        NodeAndPosition(TreeNode node, int position) {
+            this.node = node;
+            this.position = position;
         }
     }
 }

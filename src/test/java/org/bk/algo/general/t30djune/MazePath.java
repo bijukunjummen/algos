@@ -25,7 +25,7 @@ class MazePath {
         while (!queue.isEmpty()) {
             Path currentPath = queue.poll();
             visited.add(currentPath);
-            if (currentPath.coord.equals(destCoord) && willHitWall(maze, currentPath.coord, currentPath.lastMove)) {
+            if (currentPath.coord.equals(destCoord) && aWallInFront(maze, currentPath.coord, currentPath.lastMove)) {
                 return true;
             }
             queue.addAll(nextPaths(maze, currentPath, visited));
@@ -34,70 +34,44 @@ class MazePath {
     }
 
     private List<Path> nextPaths(int[][] maze, Path currentPath, Set<Path> visited) {
-        int rows = maze.length;
-        int cols = (rows > 0) ? maze[0].length : 0;
-
-        if (willHitWall(maze, currentPath.coord, currentPath.lastMove)) {
-            List<Path> possibleNextPaths = new ArrayList<>();
-            if (currentPath.coord.col > 0
-                    && maze[currentPath.coord.row][currentPath.coord.col - 1] != 1) {
-                Path nextPath = currentPath.extend(Move.LEFT);
-                if (!visited.contains(nextPath)) possibleNextPaths.add(nextPath);
+        Move lastMove = currentPath.lastMove;
+        if (lastMove == null || aWallInFront(maze, currentPath.coord, lastMove)) {
+            List<Path> potentialMoves = new ArrayList<>();
+            if (!aWallInFront(maze, currentPath.coord, Move.UP)) {
+                potentialMoves.add(currentPath.extend(Move.UP));
             }
-            if (currentPath.coord.col < cols - 1
-                    && maze[currentPath.coord.row][currentPath.coord.col + 1] != 1) {
-                Path nextPath = currentPath.extend(Move.RIGHT);
-                if (!visited.contains(nextPath)) possibleNextPaths.add(nextPath);
+            if (!aWallInFront(maze, currentPath.coord, Move.DOWN)) {
+                potentialMoves.add(currentPath.extend(Move.DOWN));
             }
-            if (currentPath.coord.row > 0
-                    && maze[currentPath.coord.row - 1][currentPath.coord.col] != 1) {
-
-                final Path nextPath = currentPath.extend(Move.UP);
-                if (!visited.contains(nextPath)) possibleNextPaths.add(nextPath);
+            if (!aWallInFront(maze, currentPath.coord, Move.LEFT)) {
+                potentialMoves.add(currentPath.extend(Move.LEFT));
             }
-            if (currentPath.coord.row < rows - 1
-                    && maze[currentPath.coord.row + 1][currentPath.coord.col] != 1) {
-                final Path nextPath = currentPath.extend(Move.DOWN);
-                if (!visited.contains(nextPath)) possibleNextPaths.add(nextPath);
+            if (!aWallInFront(maze, currentPath.coord, Move.RIGHT)) {
+                potentialMoves.add(currentPath.extend(Move.RIGHT));
             }
-            return possibleNextPaths;
+            return potentialMoves.stream().filter(path -> !visited.contains(path)).collect(Collectors.toList());
         } else {
-            // continue in the same direction
-            if (currentPath.lastMove == null) {
-                throw new IllegalStateException("Last move not expected to be null..");
-            }
-            Move newMove = currentPath.lastMove;
-            final Path nextPath = currentPath.extend(newMove);
-            if (!visited.contains(nextPath)){
-                return List.of(nextPath);
-            }
+            return List.of(currentPath.extend(lastMove));
         }
-        return List.of();
+
     }
 
-    private boolean willHitWall(int[][] maze, Coord coord, Move lastMove) {
+    private boolean aWallInFront(int[][] maze, Coord current, Move move) {
         int rows = maze.length;
         int cols = (rows > 0) ? maze[0].length : 0;
-        if (rows == 0 || cols == 0) {
-            return true;
+        switch (move) {
+            case UP:
+                return current.row == 0 || maze[current.row - 1][current.col] == 1;
+            case DOWN:
+                return current.row == rows - 1 || maze[current.row + 1][current.col] == 1;
+            case LEFT:
+                return current.col == 0 || maze[current.row][current.col - 1] == 1;
+            case RIGHT:
+                return current.col == cols - 1 || maze[current.row][current.col + 1] == 1;
         }
-        if (lastMove == null) {
-            return true;
-        } else {
-            switch (lastMove) {
-                case UP:
-                    return coord.row - 1 < 0 || maze[coord.row - 1][coord.col] == 1;
-                case DOWN:
-                    return coord.row + 1 > rows - 1 || maze[coord.row + 1][coord.col] == 1;
-                case LEFT:
-                    return coord.col - 1 < 0 || maze[coord.row][coord.col - 1] == 1;
-                case RIGHT:
-                    return coord.col + 1 > cols - 1 || maze[coord.row][coord.col + 1] == 1;
-            }
-        }
-
-        return false;
+        throw new IllegalStateException("Unexepcted move for a wall in front.");
     }
+
 
     private enum Move {
         UP, DOWN, LEFT, RIGHT
@@ -140,9 +114,9 @@ class MazePath {
     }
 
     private static class Path {
-        private Coord coord;
-        private Move lastMove;
-        private List<Move> history;
+        Coord coord;
+        Move lastMove;
+        List<Move> history;
 
         public Path(Coord coord, Move lastMove, List<Move> history) {
             this.coord = coord;
@@ -163,31 +137,21 @@ class MazePath {
                 case RIGHT:
                     return new Path(new Coord(coord.row, coord.col + 1), move, newHistory);
             }
-            throw new IllegalStateException("Should not be possible for move: " + move);
+            throw new IllegalStateException("Unexpected Move..!");
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof Path)) return false;
-
             Path path = (Path) o;
-
-            if (!Objects.equals(coord, path.coord)) return false;
-            return lastMove == path.lastMove;
+            return coord.equals(path.coord) &&
+                    lastMove == path.lastMove;
         }
 
         @Override
         public int hashCode() {
-            int result = coord != null ? coord.hashCode() : 0;
-            result = 31 * result + (lastMove != null ? lastMove.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            String moves = history.stream().map(move -> move.toString()).collect(Collectors.joining(", "));
-            return "Moves: " + moves + " to reach destination: " + coord;
+            return Objects.hash(coord, lastMove);
         }
     }
 
@@ -216,7 +180,10 @@ class MazePath {
 
     @Test
     void testMazePath3() {
-        int[][] maze = new int[][]{{0, 0, 1, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {1, 1, 0, 1, 1}, {0, 0, 0, 0, 0}};
-        assertThat(hasPath(maze, new int[]{1, 1}, new int[]{1, 2})).isTrue();
+        // int[][] maze = new int[][]{{0, 0, 1, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {1, 1, 0, 1, 1}, {0, 0, 0, 0, 0}};
+        // assertThat(hasPath(maze, new int[]{1, 1}, new int[]{1, 2})).isTrue();
+
+        var list = List.of("a", "b", "c");
+        System.out.println(list.subList(0, 3));
     }
 }

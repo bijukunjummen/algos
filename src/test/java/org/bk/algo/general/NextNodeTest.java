@@ -21,7 +21,7 @@ public class NextNodeTest {
         Node root = createBst(IntStream.range(1, 11).toArray(), 0, 9);
         navigateNode(root, "");
 
-        assertThat(nextNode(root, 5).key).isEqualTo(6);
+        assertThat(nextNode(root, 4).key).isEqualTo(5);
         assertThat(nextNode(root, 7).key).isEqualTo(8);
     }
 

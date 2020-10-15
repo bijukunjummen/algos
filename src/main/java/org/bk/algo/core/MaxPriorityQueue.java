@@ -1,6 +1,5 @@
 package org.bk.algo.core;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -57,5 +56,4 @@ public class MaxPriorityQueue<T extends Comparable<? super T>> {
     public String toString(){
         return Arrays.toString(this.pq);
     }
-
 }

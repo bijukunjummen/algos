@@ -51,7 +51,6 @@ public class MinPriorityQueue<T extends Comparable<? super T>> {
         return (pq[i].compareTo(pq[j]) < 0);
     }
 
-
     private void exchange(int i, int j) {
         T temp = pq[i];
         pq[i] = pq[j];
