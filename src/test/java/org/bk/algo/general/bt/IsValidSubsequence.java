@@ -1,8 +1,6 @@
-package org.bk.algo.general.t30day;
+package org.bk.algo.general.bt;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,31 +73,5 @@ class IsValidSubsequence {
                         new TreeNode(1)),
                 null);
         assertThat(isValidSequence(tree, new int[]{8})).isFalse();
-    }
-
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            this(x, null, null);
-        }
-
-        TreeNode(int x, TreeNode left, TreeNode right) {
-            this.left = left;
-            this.right = right;
-            this.val = x;
-        }
-
-        @Override
-        public String toString() {
-            return new StringJoiner(", ", TreeNode.class.getSimpleName() + "[", "]")
-                    .add("val=" + val)
-                    .add("left=" + left)
-                    .add("right=" + right)
-                    .toString();
-        }
     }
 }

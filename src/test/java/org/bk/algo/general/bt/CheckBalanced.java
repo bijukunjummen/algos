@@ -1,4 +1,4 @@
-package org.bk.algo.general;
+package org.bk.algo.general.bt;
 
 public class CheckBalanced {
 
@@ -15,10 +15,5 @@ public class CheckBalanced {
     int getHeight(TreeNode node) {
         if (node == null) return -1;
         return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-    }
-    private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
     }
 }

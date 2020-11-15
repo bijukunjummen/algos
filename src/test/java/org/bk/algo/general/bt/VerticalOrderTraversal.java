@@ -1,10 +1,9 @@
-package org.bk.algo.general.t30djune;
+package org.bk.algo.general.bt;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -34,17 +33,6 @@ class VerticalOrderTraversal {
             if (node.right != null) queue.add(new NodeAndPosition(node.right, position + 1));
         }
     }
-
-    private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
 
     static class NodeAndPosition {
         TreeNode node;

@@ -1,4 +1,4 @@
-package org.bk.algo.general.t30djune;
+package org.bk.algo.general.bt;
 
 
 import org.junit.jupiter.api.Test;
@@ -20,22 +20,6 @@ class InvertTree {
         return root;
     }
 
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            this(x, null, null);
-        }
-
-        TreeNode(int x, TreeNode left, TreeNode right) {
-            this.left = left;
-            this.right = right;
-            this.val = x;
-        }
-    }
-
     @Test
     void testInvert() {
         TreeNode root = new TreeNode(4,
@@ -47,5 +31,4 @@ class InvertTree {
         assertThat(result.left.val).isEqualTo(7);
         assertThat(result.right.val).isEqualTo(2);
     }
-
 }

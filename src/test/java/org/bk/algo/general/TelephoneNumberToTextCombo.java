@@ -6,49 +6,36 @@ import java.util.List;
 
 class TelephoneNumberToTextCombo {
     public List<String> letterCombinations(String digits) {
-        char[] chars = digits.toCharArray();
-        if (chars.length == 0) {
-            return Arrays.asList();
-        }
-        
-        return letterCombs(chars, "");
+        char[] chs = digits.toCharArray();
+        if (chs.length == 0) return List.of();
+        List<String> result = new ArrayList<>();
+        letterCombinations(chs, 0, "", result);
+        return result;
     }
-    
-    List<String> letterCombs(char[] chars, String prefix) {
-        //System.out.println("current prefix = " + prefix);
-        //System.out.println("current array = " + Arrays.toString(chars));
-        if (chars.length == 0) {
-            return Arrays.asList(prefix);
+
+    private void letterCombinations(char[] chs, int idx, String prefix, List<String> result) {
+        if (idx > chs.length - 1) {
+            result.add(prefix);
+            return;
         }
-        
-        char firstChar = chars[0];
-        List<String> list = new ArrayList<>();
-        for (char ch: forDigit(Character.getNumericValue(firstChar))) {
-            list.addAll(letterCombs(Arrays.copyOfRange(chars, 1, chars.length), prefix + ch));
+
+        for (char c: getDigitsForNum(chs[idx])) {
+            letterCombinations(chs, idx + 1, prefix + c, result);
         }
-        
-        return list;        
+
     }
-    
-    public char[] forDigit(int digit) {
-        
-        if (digit == 2) {
-            return new char[]{'a', 'b', 'c'};
-        } else if (digit == 3) {
-            return new char[]{'d', 'e', 'f'};
-        } else if (digit == 4) {
-            return new char[]{'g', 'h', 'i'};
-        } else if (digit == 5) {
-            return new char[]{'j', 'k', 'l'};
-        } else if (digit == 6) {
-            return new char[]{'m', 'n', 'o'};
-        } else if (digit == 7) {
-            return new char[]{'p', 'q', 'r', 's'};
-        } else if (digit == 8) {
-            return new char[]{'t', 'u', 'v'};
-        } else if (digit == 9) {
-            return new char[]{'w', 'x', 'y', 'z'};
+
+    private List<Character> getDigitsForNum(char n) {
+        switch(n) {
+            case '2': return List.of('a', 'b','c');
+            case '3': return List.of('d', 'e','f');
+            case '4': return List.of('g', 'h','i');
+            case '5': return List.of('j', 'k','l');
+            case '6': return List.of('m', 'n','o');
+            case '7': return List.of('p', 'q','r', 's');
+            case '8': return List.of('t', 'u','v');
+            case '9': return List.of('w', 'x','y', 'z');
+            default: return List.of();
         }
-        return new char[]{};
     }
 }

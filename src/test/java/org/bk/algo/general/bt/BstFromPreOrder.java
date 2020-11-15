@@ -1,4 +1,4 @@
-package org.bk.algo.general.t30day;
+package org.bk.algo.general.bt;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,15 +40,4 @@ class BstFromPreOrder {
         assertThat(tree.right.left).isNull();
         assertThat(tree.right.right.val).isEqualTo(12);
     }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
 }

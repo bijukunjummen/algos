@@ -12,10 +12,10 @@ buildscript {
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")		
 	}
 }
-
-plugins {
-	id 'scala'
-}
+//
+//plugins {
+//	id 'scala'
+//}
 
 apply plugin: 'kotlin'
 apply plugin: 'io.spring.dependency-management'
@@ -46,14 +46,14 @@ compileTestKotlin {
 }
 
 dependencies {
-	implementation('org.scala-lang:scala-library:2.11.12')
+//	implementation('org.scala-lang:scala-library:2.11.12')
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 	
 	implementation("io.vavr:vavr:0.9.3")
 	implementation("io.vavr:vavr-kotlin:0.9.3")
 	
-	testImplementation('org.scalatest:scalatest_2.11:3.0.0')
+//	testImplementation('org.scalatest:scalatest_2.11:3.0.0')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 

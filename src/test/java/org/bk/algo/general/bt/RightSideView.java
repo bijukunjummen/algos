@@ -1,4 +1,4 @@
-package org.bk.algo.general.t30sep;
+package org.bk.algo.general.bt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,24 +28,5 @@ class RightSideView {
         levelOrderedMap.get(level).add(node);
         if (node.left != null) createLevelOrderedMap(levelOrderedMap, node.left, level + 1);
         if (node.right != null) createLevelOrderedMap(levelOrderedMap, node.right, level + 1);
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }

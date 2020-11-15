@@ -1,8 +1,7 @@
-package org.bk.algo.general.t30day;
+package org.bk.algo.general.bt;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,30 +43,5 @@ class KthSmallest {
                 new TreeNode(4));
 
         assertThat(kthSmallest(root, 1)).isEqualTo(1);
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            this(x, null, null);
-        }
-
-        TreeNode(int x, TreeNode left, TreeNode right) {
-            this.left = left;
-            this.right = right;
-            this.val = x;
-        }
-
-        @Override
-        public String toString() {
-            return new StringJoiner(", ", TreeNode.class.getSimpleName() + "[", "]")
-                    .add("val=" + val)
-                    .add("left=" + left)
-                    .add("right=" + right)
-                    .toString();
-        }
     }
 }

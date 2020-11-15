@@ -1,4 +1,4 @@
-package org.bk.algo.general.t30sep;
+package org.bk.algo.general.bt;
 
 import org.junit.jupiter.api.Test;
 
@@ -86,24 +86,5 @@ class SubtreeWithAllDeepest {
 
         TreeNode result = subtreeWithAllDeepest(root);
         System.out.println(result);
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }

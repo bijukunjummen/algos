@@ -1,7 +1,13 @@
 package org.bk.algo.general;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BoggleBoard {
     static final String dictionary[] = {"GEEKS", "FOR", "QUIZ", "GUQ", "EE"};
@@ -59,5 +65,90 @@ class BoggleBoard {
 
         System.out.println("Following words of dictionary are present");
         System.out.println(findWords(boggle));
+    }
+
+    static class Trie {
+        TrieNode root = new TrieNode();
+
+        public void addWord(String word) {
+            root.addNode(0, word.toCharArray());
+        }
+
+        public boolean hasPrefix(String s) {
+            return root.hasPrefix(0, s.toCharArray());
+        }
+
+        public boolean isWord(String s) {
+            return root.isWord(0, s.toCharArray());
+        }
+    }
+
+    static class TrieNode {
+        private Map<Character, TrieNode> children;
+        private boolean word;
+
+        public TrieNode() {
+            this(false);
+
+        }
+
+        public TrieNode(boolean word) {
+            this.children = new HashMap<>();
+            this.word = word;
+        }
+
+        public Map<Character, TrieNode> getChildren() {
+            return children;
+        }
+
+        public boolean isWord() {
+            return word;
+        }
+
+        public boolean isWord(int idx, char[] rem) {
+            if (idx == rem.length) {
+                return isWord();
+            }
+            Character c = rem[idx];
+            if (children.containsKey(c)) {
+                return children.get(c).isWord(idx + 1, rem);
+            }
+            return false;
+        }
+
+        public boolean hasPrefix(int idx, char[] rem) {
+            if (idx == rem.length) {
+                return true;
+            }
+            Character c = rem[idx];
+            if (children.containsKey(c)) {
+                return children.get(c).hasPrefix(idx + 1, rem);
+            }
+            return false;
+        }
+
+        public void addNode(int idx, char[] remaining) {
+            if (idx == remaining.length - 1) {
+                children.computeIfAbsent(remaining[idx], (ignored) -> new TrieNode(true));
+                return;
+            } else {
+                children.computeIfAbsent(remaining[idx], (ignored) -> new TrieNode(false));
+            }
+            children.get(remaining[idx]).addNode(idx + 1, remaining);
+        }
+    }
+
+    @Test
+    void trieTest() {
+        Trie trie = new Trie();
+        trie.addWord("test");
+        assertThat(trie.hasPrefix("te")).isTrue();
+        assertThat(trie.hasPrefix("ab")).isFalse();
+
+        trie.addWord("abc");
+        assertThat(trie.hasPrefix("ab")).isTrue();
+        assertThat(trie.isWord("test")).isTrue();
+        assertThat(trie.isWord("abc")).isTrue();
+        assertThat(trie.isWord("ab")).isFalse();
     }
 } 
