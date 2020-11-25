@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NumIslands {
+class NumIslandsGraphRep {
     public int numIslands(char[][] grid) {
         Graph graph = convertToGraph(grid);
         boolean[] marked = new boolean[graph.v];

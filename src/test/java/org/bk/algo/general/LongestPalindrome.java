@@ -2,14 +2,10 @@ package org.bk.algo.general;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LongestPalindrome {
-    public String longestPalindrome(String s) {
+    public String longestPalindrome1(String s) {
         int len = s.length();
 
         for (int win = len; win >= 1; win--) {
@@ -48,8 +44,8 @@ public class LongestPalindrome {
 
     @Test
     public void testSomeStrings() {
-        assertThat(longestPalindrome("dfaadjflakfdjalkfjdkljkldfjklajfdklajdkmanymoremalayalammoreofit")).isEqualTo("malayalam");
-        assertThat(longestPalindrome("abaab")).isEqualTo("baab");
+        assertThat(longestPalindrome1("dfaadjflakfdjalkfjdkljkldfjklajfdklajdkmanymoremalayalammoreofit")).isEqualTo("malayalam");
+        assertThat(longestPalindrome1("abaab")).isEqualTo("baab");
     }
 
     @Test

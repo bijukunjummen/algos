@@ -17,23 +17,25 @@ public class QuickSort {
     }
 
     private static <T extends Comparable<? super T>> int partition(T[] a, int lo, int hi) {
-        int i = lo + 1;
-        int j = hi;
         T p = a[lo];
-        while (true) {
-            while (isLess(a[i], p)) {
-                if (i == hi) break;
-                i++;
+        int l = lo + 1;
+        int h = hi;
+
+        while (l <= h) {
+            while (l <= hi && a[l].compareTo(p) <= 0) {
+                l++;
             }
-            while (isLess(p, a[j])) {
-                if (j == lo) break;
-                j--;
+            while (h >= lo && a[h].compareTo(p) > 0) {
+                h--;
             }
-            if (i >= j) break;
-            exchange(a, i, j);
+            if (l < h) {
+                exchange(a, l, h);
+            }
         }
-        exchange(a, lo, j);
-        return j;
+        if (lo < h) {
+            exchange(a, lo, h);
+        }
+        return h;
     }
 
     private static <T extends Comparable<? super T>> void exchange(T[] a, int i, int j) {

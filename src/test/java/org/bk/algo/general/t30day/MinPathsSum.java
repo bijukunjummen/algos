@@ -45,7 +45,7 @@ class MinPathsSum {
     class ShortestPath {
         private int[] edgeTo;
         private int[] distTo;
-        private IndexPq minPq = new IndexPq();
+        private PriorityQueue<IndexAndDistance> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.distance));
 
         ShortestPath(VertexWeightedGraph g) {
             final int vertices = g.nodes.size();
@@ -56,10 +56,10 @@ class MinPathsSum {
                 distTo[i] = Integer.MAX_VALUE;
             }
             distTo[0] = g.getNodeAtIndex(0).weight;
-            minPq.insert(0, new IndexAndDistance(0, g.getNodeAtIndex(0).weight));
+            priorityQueue.add(new IndexAndDistance(0, g.getNodeAtIndex(0).weight));
 
-            while (!minPq.isEmpty()) {
-                relax(g, minPq.delMin());
+            while (!priorityQueue.isEmpty()) {
+                relax(g, priorityQueue.poll());
             }
         }
 
@@ -71,11 +71,12 @@ class MinPathsSum {
                 if (distTo[wIndex] > distTo[index] + w.weight) {
                     distTo[wIndex] = distTo[index] + w.weight;
                     edgeTo[wIndex] = index;
-                    if (minPq.containsItemAtIndex(wIndex)) {
-                        IndexAndDistance oldW = minPq.getItemAtIndex(wIndex);
-                        minPq.change(wIndex, oldW, new IndexAndDistance(wIndex, distTo[wIndex]));
+                    IndexAndDistance newIndexAndDistance = new IndexAndDistance(wIndex, distTo[wIndex]);
+                    if (priorityQueue.contains(newIndexAndDistance)) {
+                        priorityQueue.remove(newIndexAndDistance);
+                        priorityQueue.add(newIndexAndDistance);
                     } else {
-                        minPq.insert(wIndex, new IndexAndDistance(wIndex, distTo[wIndex]));
+                        priorityQueue.add(newIndexAndDistance);
                     }
                 }
             }
@@ -83,42 +84,6 @@ class MinPathsSum {
 
         public int distanceTo(int r, int c, int numCols) {
             return distTo[indexFor(r, c, numCols)];
-        }
-    }
-
-
-    static class IndexPq {
-        private PriorityQueue<IndexAndDistance> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.distance));
-        private Map<Integer, IndexAndDistance> itemIndex = new HashMap<>();
-
-        public IndexAndDistance delMin() {
-            IndexAndDistance itemInQueue = priorityQueue.remove();
-            itemIndex.remove(itemInQueue.index);
-            return itemInQueue;
-        }
-
-        public boolean isEmpty() {
-            return priorityQueue.isEmpty();
-        }
-
-        public void insert(int index, IndexAndDistance t) {
-            priorityQueue.add(t);
-            itemIndex.put(index, t);
-        }
-
-        public IndexAndDistance getItemAtIndex(int index) {
-            return itemIndex.get(index);
-        }
-
-        public boolean containsItemAtIndex(int index) {
-            return itemIndex.containsKey(index);
-        }
-
-        public void change(int wIndex, IndexAndDistance old, IndexAndDistance newDistance) {
-            itemIndex.remove(wIndex);
-            itemIndex.put(wIndex, newDistance);
-            priorityQueue.remove(old);
-            priorityQueue.add(newDistance);
         }
     }
 
@@ -130,6 +95,19 @@ class MinPathsSum {
         IndexAndDistance(int index, int distance) {
             this.index = index;
             this.distance = distance;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            IndexAndDistance that = (IndexAndDistance) o;
+            return index == that.index;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(index);
         }
     }
 
@@ -205,24 +183,6 @@ class MinPathsSum {
             return Objects.hash(r, c);
         }
     }
-//    static class VertexWeightedGraph {
-//        private int v;
-//        private int e;
-//
-//        private int[] weights;
-//        private List<List<Integer>> adj = new ArrayList<>();
-//
-//        public VertexWeightedGraph(int v) {
-//            this.v = v;
-//            for (int i = 0; i < v; i++) {
-//                this.adj.add(new ArrayList<>());
-//            }
-//        }
-//
-//        public List<Integer> getAdj(int i) {
-//
-//        }
-//    }
 
     @Test
     void test1() {

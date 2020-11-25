@@ -9,33 +9,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class IsPalindrome {
     public boolean isPalindrome(String s) {
-        Character[] p = canonical(s);
-        int i = 0;
-        int j = p.length- 1;
-        while (i <= j) {
-            if (p[i] != p[j]) {
+        char[] arr = s.toCharArray();
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start <= end) {
+            while (start < arr.length - 1 && !isValidChar(arr[start])) {
+                start++;
+            }
+
+            while (end > 0 && !isValidChar(arr[end])) {
+                end--;
+            }
+
+            if (start <= end && !(Character.toLowerCase(arr[start]) == Character.toLowerCase(arr[end]))) {
                 return false;
             }
-            i++;
-            j--;
+            start++;
+            end--;
         }
         return true;
     }
 
-    private Character[] canonical(String s) {
-        char[] p = s.toCharArray();
-        List<Character> canonical = new ArrayList<>();
-        for (char c: p) {
-            if (Character.isDigit(c) || Character.isAlphabetic(c)) {
-                canonical.add(Character.toLowerCase(c));
-            }
-        }
-
-        return canonical.toArray(new Character[canonical.size()]);
+    private boolean isValidChar(char c) {
+        return Character.isAlphabetic(c) || Character.isDigit(c);
     }
 
     @Test
     void test() {
         assertThat(isPalindrome("A man, a plan, a canal: Panama")).isTrue();
+        assertThat(isPalindrome("race a car")).isFalse();
+        assertThat(isPalindrome(" ")).isTrue();
+        assertThat(isPalindrome("a.")).isTrue();
+        assertThat(isPalindrome(".,")).isTrue();
     }
 }
