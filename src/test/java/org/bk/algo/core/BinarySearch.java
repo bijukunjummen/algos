@@ -1,5 +1,9 @@
 package org.bk.algo.core;
 
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class BinarySearch {
     public static <T extends Comparable<? super T>> int search(T[] arr, T anItem) {
         int lo = 0;
@@ -18,8 +22,11 @@ public class BinarySearch {
             }
         }
         return -1;
+    }
 
-
+    @Test
+    void testIter() {
+        assertThat(search(new Integer[]{1, 2, 3, 4, 5, 6}, 3)).isEqualTo(2);
     }
 
     public static <T extends Comparable<? super T>> int recSearch(T[] arr, T anItem) {
@@ -29,7 +36,6 @@ public class BinarySearch {
     public static <T extends Comparable<? super T>> int recSearchFloor(T[] arr, T anItem) {
         return recSearchHelperFloor(arr, 0, arr.length - 1, anItem);
     }
-
 
     private static <T extends Comparable<? super T>> int recSearchHelperFloor(T[] arr, int lo, int hi, T anItem) {
         if (lo > hi) return -1;

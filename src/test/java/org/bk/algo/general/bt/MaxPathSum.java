@@ -6,30 +6,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MaxPathSum {
     public int maxPathSum(TreeNode root) {
-        Holder result = maxPathMult(root);
-        return result.max;
+        Holder holder = maxPath(root);
+        return Math.max(holder.open, holder.closed);
     }
 
-    private Holder maxPathMult(TreeNode node) {
+    private Holder maxPath(TreeNode node) {
         if (node == null) {
             return null;
         }
 
-        Holder left = maxPathMult(node.left);
-        Holder right = maxPathMult(node.right);
+        Holder left = maxPath(node.left);
+        Holder right = maxPath(node.right);
 
+        int newOpen = max(max(left != null ? left.open : 0, right != null ? right.open : 0) + node.val, node.val);
+        int newClosed = max(newOpen,
+                ((left != null) ? left.closed : Integer.MIN_VALUE),
+                ((right != null) ? right.closed : Integer.MIN_VALUE),
+                ((left != null) ? left.open : 0) + ((right != null) ? right.open : 0) + +node.val);
 
-        int minOpen = max(left != null ? left.open : Integer.MIN_VALUE, right != null ? right.open : Integer.MIN_VALUE);
-        int open = max(((minOpen == Integer.MIN_VALUE) ? 0 : minOpen) + node.val, node.val);
-
-        int closed = max(
-                open,
-                left != null ? left.max : Integer.MIN_VALUE,
-                right != null ? right.max : Integer.MIN_VALUE,
-                ((left != null ? left.open : 0) + (right != null ? right.open : 0) + node.val)
-        );
-
-        return new Holder(open, closed);
+        return new Holder(newOpen, newClosed);
     }
 
     private int max(int... nums) {
@@ -42,14 +37,13 @@ class MaxPathSum {
         return max;
     }
 
+    private static class Holder {
+        int open;
+        int closed;
 
-    static class Holder {
-        final int open;
-        final int max;
-
-        Holder(int open, int max) {
+        Holder(int open, int closed) {
             this.open = open;
-            this.max = max;
+            this.closed = closed;
         }
     }
 
@@ -87,5 +81,12 @@ class MaxPathSum {
 
         assertThat(maxPathSum(root5)).isEqualTo(12);
 
+    }
+
+
+    @Test
+    void testShift() {
+        int i = 1 << 2;
+        System.out.println(i);
     }
 }

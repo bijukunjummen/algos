@@ -1,9 +1,10 @@
 package org.bk.algo.core.linkedlist;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 
 public class LinkedListAlgoTest {
 

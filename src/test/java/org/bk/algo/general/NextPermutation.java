@@ -6,39 +6,54 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class NextPermutation {
     public void nextPermutation(int[] nums) {
-        int i = nums.length - 2;
-        while (i >= 0 && nums[i + 1] <= nums[i]) {
-            i--;
+        int r = nums.length - 2;
+        while (r >= 0 && nums[r] >= nums[r + 1]) {
+            r--;
         }
-        if (i >= 0) {
-            int j = nums.length - 1;
-            while (j >= 0 && nums[j] <= nums[i]) {
-                j--;
+        // r is at a place where value is less than one after
+        if (r >= 0) {
+            int swapWith = nums.length - 1;
+            while (swapWith > r && nums[swapWith] <= nums[r]) {
+                swapWith--;
             }
-            swap(nums, i, j);
+            swap(nums, r, swapWith);
         }
-        reverse(nums, i + 1);
+        reverse(nums, r + 1);
     }
 
-    private void reverse(int[] nums, int start) {
-        int i = start, j = nums.length - 1;
-        while (i < j) {
-            swap(nums, i, j);
-            i++;
-            j--;
+    private void reverse(int[] nums, int idx) {
+        int l = idx;
+        int r = nums.length - 1;
+
+        while (l < r) {
+            swap(nums, l, r);
+            l++;
+            r--;
         }
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+    private void swap(int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
     }
 
     @Test
-    void testNextPerm() {
-        int[] nums = {1, 2, 3};
-        nextPermutation(nums);
-        assertThat(nums).isEqualTo(new int[]{1, 3, 2});
+    void testPerm() {
+        int[] arr1 = new int[]{1, 2, 3};
+        nextPermutation(arr1);
+        assertThat(arr1).isEqualTo(new int[]{1, 3, 2});
+
+        int[] arr2 = new int[]{3, 2, 1};
+        nextPermutation(arr2);
+        assertThat(arr2).isEqualTo(new int[]{1, 2, 3});
+
+        int[] arr3 = new int[]{1, 5, 1};
+        nextPermutation(arr3);
+        assertThat(arr3).isEqualTo(new int[]{5, 1, 1});
+
+        int[] arr4 = new int[]{5, 1, 1};
+        nextPermutation(arr4);
+        assertThat(arr4).isEqualTo(new int[]{1, 1, 5});
     }
 }

@@ -1,5 +1,6 @@
-package algos.graph;
+package org.bk.algo.graph;
 
+import algos.graph.Trie;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,10 +1,18 @@
 package org.bk.algo.general.bt;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Codec {
 
@@ -30,35 +38,37 @@ public class Codec {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] tokens = data.split(",");
-        AtomicInteger current = new AtomicInteger(0);
-        TreeNode root = deserialize(tokens, current);
+        Queue<String> tokensQueue = new LinkedList<>(Arrays.stream(tokens).collect(Collectors.toList()));
+        TreeNode root = deserialize(tokensQueue);
         return root;
     }
 
-    private TreeNode deserialize(String[] tokens, AtomicInteger current) {
-        String token = tokens[current.getAndIncrement()];
+    private TreeNode deserialize(Queue<String> queue) {
+        String token = queue.poll();
         if (token.equals("null")) {
             return null;
         }
         TreeNode node = new TreeNode(Integer.valueOf(token));
-        node.left = deserialize(tokens, current);
-        node.right = deserialize(tokens, current);
+        node.left = deserialize(queue);
+        node.right = deserialize(queue);
         return node;
     }
 
     @Test
     void testSerialize1() {
         TreeNode treeNode = new TreeNode(1, new TreeNode(2), new TreeNode(3, new TreeNode(4), new TreeNode(5)));
-        System.out.println(serialize(treeNode));
-        TreeNode result = deserialize(serialize(treeNode));
-        System.out.println(result);
+        String serialized = serialize(treeNode);
+        System.out.println(serialized);
+        TreeNode result = deserialize(serialized);
+        assertThat(result).isEqualTo(treeNode);
     }
 
     @Test
     void testSerialize2() {
         TreeNode treeNode = new TreeNode(1, new TreeNode(2), new TreeNode(3, new TreeNode(4, new TreeNode(14), new TreeNode(24)), new TreeNode(5, new TreeNode(6), new TreeNode(7))));
-        System.out.println(serialize(treeNode));
-        TreeNode result = deserialize(serialize(treeNode));
-        System.out.println(result);
+        String serialized = serialize(treeNode);
+        System.out.println(serialized);
+        TreeNode result = deserialize(serialized);
+        assertThat(result).isEqualTo(treeNode);
     }
 }

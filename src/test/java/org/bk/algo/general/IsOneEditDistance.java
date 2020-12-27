@@ -6,71 +6,52 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class IsOneEditDistance {
     public boolean isOneEditDistance(String s, String t) {
-        char[] arr1 = s.toCharArray();
-        char[] arr2 = t.toCharArray();
-        if (s.equals(t)) {
+        String first = s;
+        String second = t;
+        int diff = Math.abs(s.length() - t.length());
+        if (diff > 1) {
             return false;
         }
+        boolean replaced = true;
+        if (diff == 1) {
+            replaced = false;
+        }
 
-        Action action = null;
+        if (s.length() < t.length()) {
+            first = t;
+            second = s;
+        }
 
-        if (arr1.length == arr2.length) {
-            action = Action.REPLACE;
-        } else if (Math.abs(arr1.length - arr2.length) == 1) {
-            if (arr1.length < arr2.length) {
-                action = Action.INSERT;
+        int nedits = 0;
+        int p = 0;
+        int q = 0;
+
+        while (p < first.length() && q < second.length()) {
+            if (first.charAt(p) == second.charAt(q)) {
+                p++;
+                q++;
             } else {
-                action = Action.DELETE;
-            }
-        } else {
-            return false;
-        }
-
-        int diff = 0;
-        int a1 = 0;
-        int a2 = 0;
-
-        while (a1 < arr1.length && a2 < arr2.length) {
-            if (arr1[a1] == arr2[a2]) {
-                a1++;
-                a2++;
-            } else if (arr1[a1] != arr2[a2]) {
-                diff++;
-
-                if (action == Action.REPLACE) {
-                    a1++;
-                    a2++;
-                } else if (action == Action.DELETE) {
-                    a1++;
-                } else if (action == Action.INSERT) {
-                    a2++;
+                if (replaced) {
+                    p++;
+                    q++;
+                } else {
+                    p++;
                 }
+                nedits++;
             }
-            if (diff > 1) {
+            if (nedits > 1) {
                 return false;
             }
         }
-        if (a1 != arr1.length && a2 != arr2.length) {
-            return false;
-        }
-
-        if (diff == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    enum Action {
-        INSERT, DELETE, REPLACE
+        nedits += first.length()  - p;
+        return nedits == 1;
     }
 
     @Test
     void testOneEdit() {
-//        assertThat(isOneEditDistance("ab", "acb")).isTrue();
+        assertThat(isOneEditDistance("ab", "acb")).isTrue();
         assertThat(isOneEditDistance("abc", "ab")).isTrue();
-//        assertThat(isOneEditDistance("a", "")).isTrue();
-//        assertThat(isOneEditDistance("a", "")).isTrue();
+        assertThat(isOneEditDistance("a", "")).isTrue();
+        assertThat(isOneEditDistance("a", "")).isTrue();
     }
 }

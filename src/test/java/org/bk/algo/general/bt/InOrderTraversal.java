@@ -11,11 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class InOrderTraversal {
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-
         Deque<TreeNode> stack = new ArrayDeque<>();
+        List<Integer> result = new ArrayList<>();
         TreeNode current = root;
-        while (current != null || !stack.isEmpty()) {
+        while (!stack.isEmpty() || current != null) {
             while (current != null) {
                 stack.push(current);
                 current = current.left;

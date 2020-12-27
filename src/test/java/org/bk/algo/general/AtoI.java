@@ -6,33 +6,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AtoI {
     public int myAtoi(String s) {
-        char[] chs = s.toCharArray();
-        boolean leadingPosition = true;
         boolean positive = true;
-        int num = 0;
-        for (int i = 0; i < chs.length; i++) {
-            char ch = chs[i];
-            if (leadingPosition) {
-                if (isIgnoredLeading(ch) || (ch <= '9' && ch >= '0')) {
-                   if (ch == '-') {
-                       positive = false;
-                   }
+        char[] arr = s.toCharArray();
+        int result = 0;
+        int idx = 0;
+        while (idx < arr.length && arr[idx] == ' ') {
+            idx++;
+        }
+        if (idx >= arr.length) return 0;
+        if (arr[idx] == '+') {
+            positive = true;
+            idx++;
+        } else if (arr[idx] == '-') {
+            positive = false;
+            idx++;
+        } else if (Character.isDigit(arr[idx])) {
+            positive = true;
+        }
+        while (idx < arr.length && arr[idx] >= '0' && arr[idx] <= '9') {
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && (arr[idx] - '0') > 7)) {
+                if (positive) {
+                    return Integer.MAX_VALUE;
                 } else {
-                    return 0;
+                    return Integer.MIN_VALUE;
                 }
             }
-
-            if (Character.isDigit(ch)) {
-                leadingPosition = false;
-                int value = ch - '0';
-                num = num * 10 + value;
-            }
+            result = result * 10 + (arr[idx] - '0');
+            idx++;
         }
-        return positive ? num : -1 * num;
-    }
-
-    private boolean isIgnoredLeading(char ch) {
-        return ch == ' ' || ch == '-';
+        return positive ? result : (-1 * result);
     }
 
     @Test
@@ -40,6 +42,9 @@ class AtoI {
         assertThat(myAtoi("123")).isEqualTo(123);
         assertThat(myAtoi("-123")).isEqualTo(-123);
         assertThat(myAtoi(" -123")).isEqualTo(-123);
+        assertThat(myAtoi(" -123 some words")).isEqualTo(-123);
         assertThat(myAtoi(" a-123")).isEqualTo(0);
+        assertThat(myAtoi("")).isEqualTo(0);
+
     }
 }
