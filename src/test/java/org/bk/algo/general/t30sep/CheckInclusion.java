@@ -20,30 +20,20 @@ class CheckInclusion {
         Map<Character, Integer> p2 = new HashMap<>();
         while (r < l2) {
             char c = s2.charAt(r);
-
-            if (r - l + 1 < l1) { // increment r until window size matches up
-                int count = p2.getOrDefault(c, 0);
-                p2.put(c, count + 1);
-                r++;
-            } else if (r - l + 1 == l1) { //when it matches up, increment l and r while comparing patterns..
-                // add r
-                int count = p2.getOrDefault(c, 0);
-                p2.put(c, count + 1);
-
-                if (l > 0) {
-                    // remove l - 1
-                    char atL = s2.charAt(l - 1);
-                    int lCount = p2.get(atL);
-                    if (lCount - 1 == 0) {
-                        p2.remove(atL);
-                    } else {
-                        p2.put(atL, lCount - 1);
-                    }
-                }
+            int count = p2.getOrDefault(c, 0);
+            p2.put(c, count + 1);
+            r++;
+            if (r - l == l1) {
                 if (p1.equals(p2)) {
                     return true;
                 }
-                r++;
+                char atL = s2.charAt(l);
+                int lCount = p2.get(atL);
+                if (lCount - 1 == 0) {
+                    p2.remove(atL);
+                } else {
+                    p2.put(atL, lCount - 1);
+                }
                 l++;
             }
         }

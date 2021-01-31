@@ -20,13 +20,12 @@ public class LowestCommonAncestor {
         if ((left != null || right != null) && (root == p || root == q)) {
             return root;
         }
-
-        if (left != null) return left;
-        if (right != null) return right;
-
         if (root == p || root == q) {
             return root;
         }
+
+        if (left != null) return left;
+        if (right != null) return right;
 
         return null;
     }

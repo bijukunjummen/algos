@@ -1,4 +1,4 @@
-package org.bk.algo.general;
+package org.bk.algo.general.window;
 
 import org.junit.Test;
 

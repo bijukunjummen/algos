@@ -1,4 +1,4 @@
-package org.bk.algo.general;
+package org.bk.algo.general.path;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -62,7 +62,7 @@ class ShortestDistance {
         ShortestPath(Map<Point, List<Point>> graph, Point source) {
             this.graph = graph;
             for (Point point : this.graph.keySet()) {
-                pointToDistance.computeIfAbsent(point, k -> Integer.MAX_VALUE);
+                pointToDistance.putIfAbsent(point, Integer.MAX_VALUE);
             }
 
             pointToDistance.put(source, 0);

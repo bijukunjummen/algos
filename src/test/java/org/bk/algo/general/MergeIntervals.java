@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +13,7 @@ class MergeIntervals {
     public int[][] merge(int[][] intervals) {
         if (intervals.length == 0) return intervals;
         //sort by start time.
-        Arrays.sort(intervals, (n1, n2) -> n1[0] - n2[0]);
+        Arrays.sort(intervals, Comparator.comparingInt(n -> n[0]));
         List<int[]> result = new ArrayList<>();
         int[] anchor = intervals[0];
         result.add(anchor);

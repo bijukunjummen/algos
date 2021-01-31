@@ -1,8 +1,6 @@
-package org.bk.algo.general;
+package org.bk.algo.general.linked;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,30 +22,6 @@ class MergeTwoLists {
 
         current.next = (l1 == null) ? l2 : l1;
         return mergedHead.next;
-    }
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            return new StringJoiner(", ", ListNode.class.getSimpleName() + "[", "]")
-                    .add("val=" + val)
-                    .toString();
-        }
     }
 
     @Test

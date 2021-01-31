@@ -37,7 +37,6 @@ class DivideWithBasicOper {
 
     @Test
     void divideTest() {
-        System.out.println((-1 << 5));
         assertThat(divide(10, 3)).isEqualTo(3);
         assertThat(divide(12, 3)).isEqualTo(4);
         assertThat(divide(12, 4)).isEqualTo(3);

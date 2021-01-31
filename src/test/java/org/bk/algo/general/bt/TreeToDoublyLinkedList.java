@@ -3,7 +3,7 @@ package org.bk.algo.general.bt;
 import java.util.ArrayList;
 import java.util.List;
 
-class TreeToDoublyLinkedListRecursive {
+class TreeToDoublyLinkedList {
     public TreeNode treeToDoublyList(TreeNode root) {
         if (root == null) return null;
         NodeReference first = new NodeReference(null);
@@ -37,10 +37,8 @@ class TreeToDoublyLinkedListRecursive {
             this.node = node;
         }
     }
-}
 
-class TreeToDoublyLinkedListIterative {
-    public TreeNode treeToDoublyList(TreeNode root) {
+    public TreeNode treeToDoublyListIter(TreeNode root) {
         if (root == null) return null;
         List<TreeNode> flattened = new ArrayList<>();
         flattenInOrder(root, flattened);

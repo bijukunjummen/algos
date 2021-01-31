@@ -64,5 +64,7 @@ class MinRemove {
     @Test
     void testRemoval() {
         assertThat(minRemoveToMakeValid("lee(t(c)o)de)")).isEqualTo("lee(t(c)o)de");
+        assertThat(minRemoveToMakeValid("))((")).isEqualTo("");
+        assertThat(minRemoveToMakeValid("))((")).isEqualTo("");
     }
 }

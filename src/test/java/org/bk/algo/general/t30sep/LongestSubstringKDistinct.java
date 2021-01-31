@@ -1,12 +1,11 @@
 package org.bk.algo.general.t30sep;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LongestSubstringKDistinct {
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
@@ -23,32 +22,30 @@ class LongestSubstringKDistinct {
                 distinct++;
             }
             windowCounts.put(c, count + 1);
+            r++;
             if (distinct <= k) {
-                if (r - l + 1 > largest) {
-                    largest = r - l + 1;
-                }
+                largest = Math.max(largest, r - l);
             }
-
-            while (distinct > k && l <= r) {
+            while (distinct > k && l < r) {
                 Character cl = s.charAt(l);
                 int countL = windowCounts.get(cl);
-                if (countL - 1 == 0) {
+                if (countL == 1) {
                     distinct--;
+                    windowCounts.remove(cl);
+                } else {
+                    windowCounts.put(cl, countL - 1);
                 }
-                windowCounts.put(cl, countL - 1);
                 l++;
             }
-            r++;
         }
         return largest;
     }
 
-
     @Test
-    void test() {
-        Assertions.assertThat(lengthOfLongestSubstringKDistinct("eceba", 2)).isEqualTo(3);
-        Assertions.assertThat(lengthOfLongestSubstringKDistinct("aa", 0)).isEqualTo(0);
-        Assertions.assertThat(lengthOfLongestSubstringKDistinct("aa", 1)).isEqualTo(2);
-        Assertions.assertThat(lengthOfLongestSubstringKDistinct("a", 2)).isEqualTo(1);
+    void testLongestSubstKDistinct() {
+        assertThat(lengthOfLongestSubstringKDistinct("eceba", 2)).isEqualTo(3);
+        assertThat(lengthOfLongestSubstringKDistinct("aa", 0)).isEqualTo(0);
+        assertThat(lengthOfLongestSubstringKDistinct("aa", 1)).isEqualTo(2);
+        assertThat(lengthOfLongestSubstringKDistinct("a", 2)).isEqualTo(1);
     }
 }
