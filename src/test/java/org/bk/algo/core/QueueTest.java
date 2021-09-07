@@ -1,12 +1,12 @@
 package org.bk.algo.core;
 
-import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class QueueTest {
-	Queue<String> queue = new Queue<String>();
+	Queue<String> queue = new Queue<>();
 	
 	@Test
 	public void testEnqueueAndGetSize(){
@@ -14,17 +14,17 @@ public class QueueTest {
 		queue.enqueue("002");
 		queue.enqueue("003");
 		
-		assertThat(queue.size(), is(3));
+		assertThat(queue.size()).isEqualTo(3);
 	}
 	
 	@Test
 	public void testDequeueAndGetSize(){
 		queue.enqueue("001");
-		assertThat(queue.dequeue(), is("001"));
+		assertThat(queue.dequeue()).isEqualTo("001");
         queue.enqueue("002");		
-		assertThat(queue.dequeue(), is("002"));
+		assertThat(queue.dequeue()).isEqualTo("002");
 		queue.enqueue("003");
-		assertThat(queue.dequeue(), is("003"));
+		assertThat(queue.dequeue()).isEqualTo("003");
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class QueueTest {
 		for (String item: queue){
 			items += item;
 		}
-		assertThat(items, is("001002003"));
+		assertThat(items).isEqualTo("001002003");
 	}
 	
 	@Test

@@ -1,13 +1,11 @@
 package org.bk.algo.core;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.collection.IsIterableContainingInOrder.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class BinarySearchTreeTest {
@@ -20,19 +18,19 @@ public class BinarySearchTreeTest {
         bst.put(2, "Two");
         bst.put(1, "One");
         
-        assertThat(bst.get(1), is("One"));     
-        assertThat(bst.size(), is(3));
+        assertThat(bst.get(1)).isEqualTo("One");
+        assertThat(bst.size()).isEqualTo(3);
 
         bst.put(6, "Six");
         bst.put(4, "Four");
         bst.put(5, "Five");
         
-        assertThat(bst.get(6), is("Six"));
-        assertThat(bst.size(), is(6));
+        assertThat(bst.get(6)).isEqualTo("Six");
+        assertThat(bst.size()).isEqualTo(6);
         
         bst.put(4, "Foure");
-        assertThat(bst.get(4), is("Foure"));
-        assertThat(bst.size(), is(6));
+        assertThat(bst.get(4)).isEqualTo("Foure");
+        assertThat(bst.size()).isEqualTo(6);
         
         System.out.println(bst.getHeight());
         
@@ -56,7 +54,7 @@ public class BinarySearchTreeTest {
         
         NodeCollectingVisitor<Integer, String> vst =  new NodeCollectingVisitor<Integer, String>();
         bst.traverseInOrder(vst);
-        assertThat(vst.getKeys(), contains(1,2,3,4,5,6));
+        assertThat(vst.getKeys()).contains(1,2,3,4,5,6);
     }
     
     @Test
@@ -72,7 +70,7 @@ public class BinarySearchTreeTest {
         
         NodeCollectingVisitor<Integer, String> vst =  new NodeCollectingVisitor<Integer, String>();
         bst.traversePreOrder(vst);
-        assertThat(vst.getKeys(), contains(3,2,1,6,4,5));
+        assertThat(vst.getKeys()).contains(3,2,1,6,4,5);
     }    
 
     @Test
@@ -88,7 +86,7 @@ public class BinarySearchTreeTest {
         
         NodeCollectingVisitor<Integer, String> vst =  new NodeCollectingVisitor<Integer, String>();
         bst.traversePostOrder(vst);
-        assertThat(vst.getKeys(), contains(1,2,5,4,6,3));
+        assertThat(vst.getKeys()).contains(1,2,5,4,6,3);
     }
     
     @Test

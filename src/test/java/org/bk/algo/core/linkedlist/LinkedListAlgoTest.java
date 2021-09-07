@@ -2,8 +2,7 @@ package org.bk.algo.core.linkedlist;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class LinkedListAlgoTest {
@@ -20,7 +19,7 @@ public class LinkedListAlgoTest {
         linkedList2.insertAtHead(5);
         linkedList2.insertAtHead(3);
 
-        assertThat(sumIter(linkedList1, linkedList2).toString(), equalTo("2-2-0-1-"));
+        assertThat(sumIter(linkedList1, linkedList2).toString()).isEqualTo("2-2-0-1-");
     }
 
     @Test
@@ -35,7 +34,7 @@ public class LinkedListAlgoTest {
         linkedList2.insertAtHead(5);
         linkedList2.insertAtHead(3);
 
-        assertThat(sumRecursive(linkedList1, linkedList2).toString(), equalTo("2-2-0-1-"));
+        assertThat(sumRecursive(linkedList1, linkedList2).toString()).isEqualTo("2-2-0-1-");
     }
 
     @Test

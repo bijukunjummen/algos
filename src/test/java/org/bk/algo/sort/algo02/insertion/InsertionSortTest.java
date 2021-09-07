@@ -1,12 +1,9 @@
 package org.bk.algo.sort.algo02.insertion;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
-import static org.junit.Assert.assertThat;
-
 import org.bk.algo.sort.SortFixtures;
-import org.bk.algo.sort.algo02.insertion.InsertionSort;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class InsertionSortTest {
 	
@@ -14,7 +11,7 @@ public class InsertionSortTest {
 	public void testForASmallArrayOfIntegers(){
 		Integer[] arr = SortFixtures.fixture1();
 		InsertionSort.sort(arr);		
-		assertThat(arr, is(arrayContaining(SortFixtures.fixture1Expected())));
+		assertThat(arr).isEqualTo(SortFixtures.fixture1Expected());
 	}
 
 }

@@ -1,9 +1,9 @@
 package org.bk.algo.core;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MinPriorityQueueTest {
     @Test
@@ -16,11 +16,11 @@ public class MinPriorityQueueTest {
         pq.insert(19);
         pq.insert(2);
         
-        assertThat(pq.delAndGetMin(), is(equalTo(2)));
-        assertThat(pq.delAndGetMin(), is(equalTo(2)));
-        assertThat(pq.delAndGetMin(), is(equalTo(9)));
-        assertThat(pq.delAndGetMin(), is(equalTo(9)));
-        assertThat(pq.delAndGetMin(), is(equalTo(11)));
-        assertThat(pq.delAndGetMin(), is(equalTo(19)));
+        assertThat(pq.delAndGetMin()).isEqualTo(2);
+        assertThat(pq.delAndGetMin()).isEqualTo(2);
+        assertThat(pq.delAndGetMin()).isEqualTo(9);
+        assertThat(pq.delAndGetMin()).isEqualTo(9);
+        assertThat(pq.delAndGetMin()).isEqualTo(11);
+        assertThat(pq.delAndGetMin()).isEqualTo(19);
     }
 }

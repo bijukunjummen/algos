@@ -1,11 +1,9 @@
 package org.bk.algo.sort.algo04.merge;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
-import static org.junit.Assert.assertThat;
-
 import org.bk.algo.sort.SortFixtures;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MergeSortForkJoinTest {
 	
@@ -13,7 +11,7 @@ public class MergeSortForkJoinTest {
 	public void testForASmallArrayOfIntegers(){
 		Integer[] arr = SortFixtures.fixture1();
 		MergeSortForkJoin.sort(arr);
-		assertThat(arr, is(arrayContaining(SortFixtures.fixture1Expected())));
+		assertThat(arr).isEqualTo(SortFixtures.fixture1Expected());
 	}
 	
 	@Test

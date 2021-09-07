@@ -4,7 +4,7 @@ import io.vavr.Tuple
 import io.vavr.Tuple2
 import io.vavr.collection.List
 import io.vavr.kotlin.list
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class PouringTest {
     @Test

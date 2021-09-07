@@ -1,9 +1,9 @@
 package org.bk.algo.core;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MaxPriorityQueueTest {
 
@@ -17,9 +17,9 @@ public class MaxPriorityQueueTest {
         pq.insert(19);
         pq.insert(2);
         
-        assertThat(pq.delAndGetMaximum(), is(equalTo(19)));
-        assertThat(pq.delAndGetMaximum(), is(equalTo(11)));
-        assertThat(pq.delAndGetMaximum(), is(equalTo(9)));
+        assertThat(pq.delAndGetMaximum()).isEqualTo(19);
+        assertThat(pq.delAndGetMaximum()).isEqualTo(11);
+        assertThat(pq.delAndGetMaximum()).isEqualTo(9);
     }
     
     @Test
@@ -42,9 +42,7 @@ public class MaxPriorityQueueTest {
         pq.delAndGetMaximum();
         pq.delAndGetMaximum();
         
-//        System.out.println(pq);
-        
-        assertThat(pq.delAndGetMaximum(), is(equalTo("T")));
+        assertThat(pq.delAndGetMaximum()).isEqualTo("T");
     }
 
 }

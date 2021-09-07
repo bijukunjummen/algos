@@ -1,14 +1,13 @@
 package org.bk.algo.general.anagram;
 
+import org.junit.jupiter.api.Test;
+
+import java.util.Set;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.junit.Test;
 
 public class WordUtilsTest {
 

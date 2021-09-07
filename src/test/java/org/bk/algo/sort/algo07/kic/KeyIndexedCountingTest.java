@@ -1,16 +1,17 @@
 package org.bk.algo.sort.algo07.kic;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
 
 public class KeyIndexedCountingTest {
     List<Item<String>> items;
     
-    @Before
+    @BeforeEach
     public void setUp(){
         items = new ArrayList<Item<String>>();
         items.add(new Item<String>(2, "Anderson"));

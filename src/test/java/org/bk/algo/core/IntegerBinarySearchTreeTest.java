@@ -1,8 +1,8 @@
 package org.bk.algo.core;
 
-import org.junit.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class IntegerBinarySearchTreeTest {
@@ -22,10 +22,10 @@ public class IntegerBinarySearchTreeTest {
         //1      4
         //         5
 
-        assertThat(bst.get(4), is("Four"));
-        assertThat(bst.size(), is(6));
-        assertThat(bst.validateBST(), is(true));
+        assertThat(bst.get(4)).isEqualTo("Four");
+        assertThat(bst.size()).isEqualTo(6);
+        assertThat(bst.validateBST()).isEqualTo(true);
         
-        assertThat(bst.isBalanced(), is(false));
+        assertThat(bst.isBalanced()).isEqualTo(false);
     }
 }

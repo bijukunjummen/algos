@@ -1,17 +1,15 @@
 package org.bk.algo.graph;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GraphTest {
 
     private Graph graph;
     
-    @Before
+    @BeforeEach
     public void setUp(){
         graph = new Graph(6);
         graph.addEdge(0, 1);
@@ -39,9 +37,9 @@ public class GraphTest {
     
     @Test
     public void testBuildingASimpleGraph() {        
-        assertThat(graph.verticeCount(), is(6));
-        assertThat(graph.degree(0), is(3));
-        assertThat(graph.degree(2), is(4));
+        assertThat(graph.verticeCount()).isEqualTo(6);
+        assertThat(graph.degree(0)).isEqualTo(3);
+        assertThat(graph.degree(2)).isEqualTo(4);
     }
 
     @Test

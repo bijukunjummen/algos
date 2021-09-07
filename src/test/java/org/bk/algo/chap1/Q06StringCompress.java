@@ -1,12 +1,6 @@
 package org.bk.algo.chap1;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
-
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

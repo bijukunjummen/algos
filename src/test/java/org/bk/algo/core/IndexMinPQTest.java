@@ -1,9 +1,7 @@
 package org.bk.algo.core;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IndexMinPQTest {
     @Test
