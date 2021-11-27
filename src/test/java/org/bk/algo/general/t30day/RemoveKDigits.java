@@ -1,9 +1,11 @@
 package org.bk.algo.general.t30day;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 class RemoveKDigits {
     public String removeKdigits(String num, int k) {
         final String res = allDigits("", num, num.length() - k);
