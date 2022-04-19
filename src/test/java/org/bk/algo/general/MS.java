@@ -10,9 +10,6 @@ import java.util.PriorityQueue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// you can write to stdout for debugging purposes, e.g.
-// System.out.println("this is a debug message");
-
 class SumOfDigits {
     public int solution(int[] A) {
         // Collect the sum of the digits to the numbers as a map
@@ -172,10 +169,5 @@ class SimpleMachine {
         assertThat(solution("13 - -")).isEqualTo(-1);
         assertThat(solution("13 5 +")).isEqualTo(18);
     }
-
-
-
-
-
 }
 

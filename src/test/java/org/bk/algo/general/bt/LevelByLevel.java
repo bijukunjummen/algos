@@ -4,35 +4,52 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Queue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LevelByLevel {
     List<List<TreeNode>> traverseLevelByLevel(TreeNode node) {
         List<List<TreeNode>> result = new ArrayList<>();
-        Deque<NodeAndLevel> queue = new ArrayDeque<>();
+        Queue<NodeAndLevel> queue = new ArrayDeque<>();
         queue.add(new NodeAndLevel(node, 0));
-        Map<Integer, List<TreeNode>> levelToNodes = new HashMap<>();
         while (!queue.isEmpty()) {
-            NodeAndLevel nodeAndLevel = queue.pop();
+            NodeAndLevel nodeAndLevel = queue.poll();
             TreeNode current = nodeAndLevel.node;
             int level = nodeAndLevel.level;
-            levelToNodes.computeIfAbsent(level, k -> new ArrayList<>());
-            levelToNodes.get(level).add(current);
+            if (result.size() < (level + 1)) {
+                result.add(new ArrayList<>());
+            }
+            result.get(level).add(current);
             if (current.left != null) {
                 queue.add(new NodeAndLevel(current.left, level + 1));
             }
             if (current.right != null) {
-                queue.add(new NodeAndLevel(node.right, level + 1));
+                queue.add(new NodeAndLevel(current.right, level + 1));
             }
         }
-        for (int i = 0; i < levelToNodes.size(); i++) {
-            List<TreeNode> forLevel =  levelToNodes.get(i);
-            result.add(forLevel);
+        return result;
+    }
+
+    List<List<TreeNode>> traverseLevelByLevel2(TreeNode node) {
+        List<List<TreeNode>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            int currentLevelSize = queue.size();
+            List<TreeNode> currentLevel = new ArrayList<>();
+            for (int i = 0; i < currentLevelSize; i++) {
+                TreeNode currentNode = queue.poll();
+                currentLevel.add(currentNode);
+                if (currentNode.left != null) {
+                    queue.add(currentNode.left);
+                }
+                if (currentNode.right != null) {
+                    queue.add(currentNode.right);
+                }
+            }
+            result.add(currentLevel);
         }
         return result;
     }
@@ -48,32 +65,28 @@ class LevelByLevel {
     }
 
     @Test
-    void testMaxPathSum() {
+    void testTraverseLevelByLevel() {
         TreeNode root1 = new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3));
+                new TreeNode(2, new TreeNode(21), new TreeNode(22)),
+                new TreeNode(3, new TreeNode(31), null));
 
         List<List<TreeNode>> result = traverseLevelByLevel(root1);
-        System.out.println(result);
+        assertThat(result.get(0).size()).isEqualTo(1);
+        assertThat(result.get(1).size()).isEqualTo(2);
+        assertThat(result.get(2).size()).isEqualTo(3);
+        assertThat(result.size()).isEqualTo(3);
+    }
 
-        TreeNode root2 = new TreeNode(-3);
+    @Test
+    void testTraverseLevelByLevel2() {
+        TreeNode root1 = new TreeNode(1,
+                new TreeNode(2, new TreeNode(21), new TreeNode(22)),
+                new TreeNode(3, new TreeNode(31), null));
 
-
-        TreeNode root3 = new TreeNode(2,
-                new TreeNode(-1),
-                null);
-
-        TreeNode root4 = new TreeNode(-2,
-                new TreeNode(6,
-                        new TreeNode(0),
-                        new TreeNode(-6)),
-                null);
-
-        TreeNode root5 = new TreeNode(-1,
-                null,
-                new TreeNode(9,
-                        new TreeNode(-6),
-                        new TreeNode(3, null, new TreeNode(-2))));
-
+        List<List<TreeNode>> result = traverseLevelByLevel2(root1);
+        assertThat(result.get(0).size()).isEqualTo(1);
+        assertThat(result.get(1).size()).isEqualTo(2);
+        assertThat(result.get(2).size()).isEqualTo(3);
+        assertThat(result.size()).isEqualTo(3);
     }
 }
