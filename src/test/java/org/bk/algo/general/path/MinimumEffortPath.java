@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MinimumEffortPath {
     public int minimumEffortPath(int[][] heights) {
-        Map<Point, Integer> pointToDistance = new HashMap<>();
+        final Map<Point, Integer> pointToDistance = new HashMap<>();
         int rows = heights.length;
         int cols = rows > 0 ? heights[0].length : 0;
 
@@ -24,8 +24,8 @@ class MinimumEffortPath {
             }
         }
         pointToDistance.put(new Point(new int[]{0, 0}), 0);
-        PriorityQueue<PointAndDistance> minPq = new PriorityQueue<>(Comparator.comparing(p -> p.distance));
-        minPq.add(new PointAndDistance(new int[]{0, 0}, 0));
+        PriorityQueue<Point> minPq = new PriorityQueue<>(Comparator.comparing(p -> pointToDistance.get(p)));
+        minPq.add(new Point(new int[]{0, 0}));
 
         while (!minPq.isEmpty()) {
             relax(minPq.poll(), minPq, pointToDistance, heights);
@@ -33,20 +33,20 @@ class MinimumEffortPath {
         return pointToDistance.get(new Point(new int[]{rows - 1, cols - 1}));
     }
 
-    private void relax(PointAndDistance pointAndDistance, PriorityQueue<PointAndDistance> minPq, Map<Point, Integer> pointToDistance, int[][] heights) {
-        int[] point = pointAndDistance.point;
-        int distance = pointAndDistance.distance;
+    private void relax(Point p, PriorityQueue<Point> minPq, Map<Point, Integer> pointToDistance, int[][] heights) {
+        int[] point = p.point;
+        int distance = pointToDistance.get(p);
         List<int[]> neighbors = neighbors(point, heights);
         for (int[] neighbor : neighbors) {
             int distToNeighbor = distanceTo(point, neighbor, heights, distance);
-            PointAndDistance neighborPointAndDistance = new PointAndDistance(neighbor, distToNeighbor);
-            if (pointToDistance.get(new Point(neighbor)) > distToNeighbor) {
-                pointToDistance.put(new Point(neighbor), distToNeighbor);
-                if (!minPq.contains(neighborPointAndDistance)) {
-                    minPq.add(neighborPointAndDistance);
+            Point neighborPoint = new Point(neighbor);
+            if (pointToDistance.get(neighborPoint) > distToNeighbor) {
+                pointToDistance.put(neighborPoint, distToNeighbor);
+                if (!minPq.contains(neighborPoint)) {
+                    minPq.add(neighborPoint);
                 } else {
-                    minPq.remove(neighborPointAndDistance);
-                    minPq.add(neighborPointAndDistance);
+                    minPq.remove(neighborPoint);
+                    minPq.add(neighborPoint);
                 }
             }
         }
@@ -92,29 +92,6 @@ class MinimumEffortPath {
             if (o == null || getClass() != o.getClass()) return false;
             Point point1 = (Point) o;
             return Arrays.equals(point, point1.point);
-        }
-
-        @Override
-        public int hashCode() {
-            return Arrays.hashCode(point);
-        }
-    }
-
-    static class PointAndDistance {
-        int[] point;
-        int distance;
-
-        PointAndDistance(int[] point, int distance) {
-            this.point = point;
-            this.distance = distance;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            PointAndDistance that = (PointAndDistance) o;
-            return Arrays.equals(point, that.point);
         }
 
         @Override

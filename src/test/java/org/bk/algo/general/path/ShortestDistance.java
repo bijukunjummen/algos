@@ -66,55 +66,33 @@ class ShortestDistance {
             }
 
             pointToDistance.put(source, 0);
-            PriorityQueue<PointAndDistance> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.distance));
-            pq.add(new PointAndDistance(source, 0));
+            PriorityQueue<Point> pq = new PriorityQueue<>(Comparator.comparingInt(o -> pointToDistance.get(o)));
+            pq.add(source);
             while (!pq.isEmpty()) {
                 relax(pq.poll(), pq);
             }
         }
 
-        private void relax(PointAndDistance p, PriorityQueue<PointAndDistance> pq) {
-            Point point = p.point;
-            int distance = p.distance;
+        private void relax(Point point, PriorityQueue<Point> pq) {
             if (point.g == 1) {
                 return;
             }
 
+            int distance = pointToDistance.get(point);
+
             for (Point neighbor : graph.get(point)) {
                 if (pointToDistance.get(neighbor) > distance + 1) {
                     pointToDistance.put(neighbor, distance + 1);
-                    PointAndDistance nPointAndDistance = new PointAndDistance(neighbor, distance + 1);
-                    if (pq.contains(nPointAndDistance)) {
-                        pq.remove(nPointAndDistance);
+                    if (pq.contains(neighbor)) {
+                        pq.remove(neighbor);
                     }
-                    pq.add(nPointAndDistance);
+                    pq.add(neighbor);
                 }
             }
         }
 
         private int getDistance(Point building) {
             return pointToDistance.get(building);
-        }
-    }
-
-    static class PointAndDistance {
-        Point point;
-        int distance;
-
-        PointAndDistance(Point point, int distance) {
-            this.point = point;
-            this.distance = distance;
-        }
-
-        @Override
-        public int hashCode() {
-            return point.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            PointAndDistance other = (PointAndDistance) object;
-            return this.point.equals(other.point);
         }
     }
 
