@@ -55,5 +55,8 @@ class NextPermutation {
         int[] arr4 = new int[]{5, 1, 1};
         nextPermutation(arr4);
         assertThat(arr4).isEqualTo(new int[]{1, 1, 5});
+        int[] arr5 = new int[]{1, 2, 6, 7, 5};
+        nextPermutation(arr5);
+        assertThat(arr5).isEqualTo(new int[]{1, 2, 7, 5, 6});
     }
 }
