@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CountVowelStrings {
-    // 'a', 'e', 'i', 'o', 'u'
+    // 'a', 'e', 'i', 'other', 'u'
     public int countVowelStrings(int n) {
         return countVowelStrings(0, '0', n);
     }
