@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 //[8,5,1,7,10,12]
 class BstFromPreOrder {
     public TreeNode bstFromPreorder(int[] preorder) {
-
         return bstHelper(Integer.MIN_VALUE, Integer.MAX_VALUE, new AtomicInteger(0), preorder);
     }
 

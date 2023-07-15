@@ -16,15 +16,15 @@ class IsBipartite {
         return true;
     }
 
-    private boolean isBipartite(int[][] graph, int v, boolean[] marked, boolean[] opp) {
+    private boolean isBipartite(int[][] graph, int v, boolean[] marked, boolean[] color) {
         marked[v] = true;
         for (int w : graph[v]) {
             if (!marked[w]) {
-                opp[w] = !opp[v];
-                if (!isBipartite(graph, w, marked, opp)) {
+                color[w] = !color[v];
+                if (!isBipartite(graph, w, marked, color)) {
                     return false;
                 }
-            } else if (opp[v] == opp[w]) {
+            } else if (color[v] == color[w]) {
                 return false;
             }
         }

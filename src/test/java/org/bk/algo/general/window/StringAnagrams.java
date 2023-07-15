@@ -1,6 +1,5 @@
 package org.bk.algo.general.window;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,11 +14,16 @@ class StringAnagrams {
         List<Integer> resultIndices = new ArrayList<>();
         Map<Character, Integer> freqMap = createFreqMap(pattern);
         Map<Character, Integer> strMap = new HashMap<>();
-        for (int s = 0, e = 0; e < str.length(); e++) {
+        int anagramLength = pattern.length();
+        int s = 0;
+        for (int e = 0; e < str.length(); e++) {
             char atE = str.charAt(e);
             strMap.put(atE, strMap.getOrDefault(atE, 0) + 1);
-
-            while (strMap.getOrDefault(atE, 0) > freqMap.getOrDefault(atE, 0)) {
+            int len = e - s + 1;
+            if (len == anagramLength) {
+                if (strMap.equals(freqMap)) {
+                    resultIndices.add(s);
+                }
                 char atS = str.charAt(s);
 
                 Integer countAtS = strMap.getOrDefault(atS, 0);
@@ -29,9 +33,6 @@ class StringAnagrams {
                     strMap.put(atS, countAtS - 1);
                 }
                 s++;
-            }
-            if (strMap.equals(freqMap)) {
-                resultIndices.add(s);
             }
         }
         return resultIndices;

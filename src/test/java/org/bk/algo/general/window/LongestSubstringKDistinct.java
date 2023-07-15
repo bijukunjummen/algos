@@ -11,11 +11,12 @@ class LongestSubstringKDistinct {
     public static int lengthOfLongestSubstringKDistinct(String str, int k) {
         Map<Character, Integer> countsMap = new HashMap<>();
         int maxChars = 0;
-        for (int s = 0, e = 0; e < str.length(); e++) {
+        int s = 0;
+        for (int e = 0; e < str.length(); e++) {
             Character c = str.charAt(e);
             int currentCount = countsMap.getOrDefault(c, 0);
             countsMap.put(c, currentCount + 1);
-            while (countsMap.keySet().size() > k) {
+            while (countsMap.size() > k) {
                 char toRemove = str.charAt(s);
                 int count = countsMap.get(toRemove);
                 if (count == 1) {

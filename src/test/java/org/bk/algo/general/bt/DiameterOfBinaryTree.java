@@ -30,13 +30,5 @@ class DiameterOfBinaryTree {
         return max;
     }
 
-    static class Pair {
-        Integer closed;
-        Integer open;
-
-        Pair(Integer closed, Integer open) {
-            this.closed = closed;
-            this.open = open;
-        }
-    }
+    record Pair(int closed, int open){}
 }
