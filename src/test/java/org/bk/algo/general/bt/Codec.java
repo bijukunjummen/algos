@@ -69,7 +69,16 @@ public class Codec {
 
     @Test
     void testSerialize2() {
-        TreeNode treeNode = new TreeNode(1, new TreeNode(2), new TreeNode(3, new TreeNode(4, new TreeNode(14), new TreeNode(24)), new TreeNode(5, new TreeNode(6), new TreeNode(7))));
+        TreeNode treeNode =
+                new TreeNode(1,
+                        new TreeNode(2),
+                        new TreeNode(3,
+                                new TreeNode(4,
+                                        new TreeNode(14),
+                                        new TreeNode(24)),
+                                new TreeNode(5,
+                                        new TreeNode(6),
+                                        new TreeNode(7))));
         String serialized = serialize(treeNode);
         System.out.println(serialized);
         TreeNode result = deserialize(serialized);

@@ -12,49 +12,22 @@ import java.util.Map;
 
 class LowerCommonAncestor {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
-        dfs(root, null, parentMap);
-        List<TreeNode> list1 = createRootToNode(parentMap, p);
-        List<TreeNode> list2 = createRootToNode(parentMap, p);
-
-        int p1 = 0;
-        int p2 = 0;
-        TreeNode candidate = null;
-        while (p1 < list1.size() && p2 < list2.size() && list1.get(p1) == list2.get(p2)) {
-            candidate = list1.get(p1);
-            if (p1 < list1.size() - 1) {
-                p1++;
-            }
-
-            if (p2 < list2.size() - 1) {
-                p2++;
-            }
-        }
-        return candidate;
-
-    }
-
-    private List<TreeNode> createRootToNode(Map<TreeNode, TreeNode> parentMap, TreeNode node) {
-        Deque<TreeNode> deque = new ArrayDeque<>();
-        TreeNode current = node;
-        while (current != null) {
-            deque.addFirst(current);
-            current = parentMap.get(current);
-        }
-        return new ArrayList<>(deque);
-    }
-
-    private void dfs(TreeNode node, TreeNode parent, Map<TreeNode, TreeNode> parentMap) {
-        if (parent != null) {
-            parentMap.put(node, parent);
+        if (root == null || root == p || root == q) {
+            return root;
         }
 
-        if (node.left != null) {
-            dfs(node.left, node, parentMap);
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left != null && right != null) {
+            return root;
+        } else if (left != null) {
+            return left;
+        } else {
+            return right;
         }
-        if (node.right != null) {
-            dfs(node.right, node, parentMap);
-        }
+
+
     }
 
     @Test
