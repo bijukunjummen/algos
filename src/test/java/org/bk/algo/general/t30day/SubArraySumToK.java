@@ -1,60 +1,35 @@
 package org.bk.algo.general.t30day;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SubArraySumToK {
     public int subarraySum(int[] nums, int k) {
-        int[] sumArr = getSumRange(nums);
-        int countTotal = 0;
-        for (int win = nums.length; win >= 1; win--) {
-            countTotal += checkSumInWin(win, k, sumArr, nums);
+        int[] sum = new int[nums.length + 1];
+        sum[0] = 0;
+        for (int i = 1; i <= nums.length; i++) {
+            sum[i] = sum[i-1] + nums[i - 1];
         }
-
-        return countTotal;
-    }
-
-    private int checkSumInWin(int win, int k, int[] sumArr, int[] nums) {
         int count = 0;
-        for (int i = 0; i < nums.length - win + 1; i++) {
-            if (sumRange(sumArr, nums, i, i + win -1) == k) {
-                count++;
+
+        for (int s = 0; s < nums.length; s++) {
+            for (int e = s; e < nums.length; e++) {
+                if (diff(s, e, sum) == k) {
+                    count++;
+                }
             }
         }
         return count;
     }
 
-    private int[] getSumRange(int[] nums) {
-        int length = nums.length;
-        int[] sumArr = new int[length];
-        int sum = 0;
-        for (int i = 0; i < length; i++) {
-            sum = sum + nums[i];
-            sumArr[i] = sum;
-        }
-        return sumArr;
-    }
-
-    private int sumRange(int[] sumArr, int[] nums, int start, int end) {
-        return sumArr[end] - sumArr[start] + nums[start];
+    private int diff(int s, int e, int[] sum) {
+        return sum[e + 1] - sum[s];
     }
 
     @Test
     void testSumOfK() {
-//        assertThat(subarraySum(new int[]{1, 1, 1}, 2)).isEqualTo(2);
+        assertThat(subarraySum(new int[]{1, 1, 1}, 2)).isEqualTo(2);
         assertThat(subarraySum(new int[]{1, 2, 3}, 3)).isEqualTo(2);
-    }
-
-    @Test
-    void testSumRange() {
-        int[] nums = new int[]{1, 2, 3, 4};
-        int[] sumArr = getSumRange(nums);
-        assertThat(sumRange(sumArr, nums, 0, 1)).isEqualTo(3);
-        assertThat(sumRange(sumArr, nums, 0, 0)).isEqualTo(1);
-        assertThat(sumRange(sumArr, nums, 1, 2)).isEqualTo(5);
-        assertThat(sumRange(sumArr, nums, 2, 2)).isEqualTo(3);
-        assertThat(sumRange(sumArr, nums, 1, 3)).isEqualTo(9);
     }
 }
