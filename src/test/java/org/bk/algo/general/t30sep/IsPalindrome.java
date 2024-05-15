@@ -14,15 +14,14 @@ class IsPalindrome {
         int end = arr.length - 1;
 
         while (start <= end) {
-            while (start < arr.length - 1 && !isValidChar(arr[start])) {
+            while (start <= end && !isValidChar(arr[start])) {
                 start++;
             }
 
-            while (end > 0 && !isValidChar(arr[end])) {
+            while (end >= start && !isValidChar(arr[end])) {
                 end--;
             }
-
-            if (start <= end && !(Character.toLowerCase(arr[start]) == Character.toLowerCase(arr[end]))) {
+            if ((start <= end) && Character.toLowerCase(arr[start]) != Character.toLowerCase(arr[end])) {
                 return false;
             }
             start++;
@@ -30,6 +29,7 @@ class IsPalindrome {
         }
         return true;
     }
+
 
     private boolean isValidChar(char c) {
         return Character.isAlphabetic(c) || Character.isDigit(c);

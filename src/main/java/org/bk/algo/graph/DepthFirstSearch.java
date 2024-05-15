@@ -2,7 +2,9 @@ package org.bk.algo.graph;
 
 import org.bk.algo.core.Stack;
 
+import java.util.ArrayDeque;
 import java.util.BitSet;
+import java.util.Deque;
 
 public class DepthFirstSearch {
     private BitSet marked;
@@ -38,7 +40,7 @@ public class DepthFirstSearch {
     }
 
     private void iterativeSearch(int v) {
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         stack.push(v);
         marked.set(v);
         System.out.println(v);

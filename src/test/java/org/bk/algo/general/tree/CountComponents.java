@@ -39,9 +39,10 @@ class CountComponents {
         }
         return graph;
     }
+
     private void dfs(int v, Map<Integer, List<Integer>> graph, boolean[] marked) {
         marked[v] = true;
-        for (int w: graph.getOrDefault(v, Collections.emptyList())) {
+        for (int w : graph.getOrDefault(v, Collections.emptyList())) {
             if (!marked[w]) {
                 dfs(w, graph, marked);
             }
@@ -53,6 +54,4 @@ class CountComponents {
         assertThat(countComponents(5, new int[][]{{0, 1}, {1, 2}, {3, 4}})).isEqualTo(2);
         assertThat(countComponents(5, new int[][]{{0, 1}, {1, 2}, {2, 3}, {3, 4}})).isEqualTo(1);
     }
-
-    
 }

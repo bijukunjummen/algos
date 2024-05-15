@@ -27,17 +27,6 @@ class LowestCommonAncestorWithParent {
         return result;
     }
 
-    private static class Node {
-        private int val;
-        private Node left;
-        private Node right;
-        private Node parent;
-
-        Node(int val, Node left, Node right, Node parent) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-            this.parent = parent;
-        }
+    record Node(int val, Node left, Node right, Node parent) {
     }
 }
