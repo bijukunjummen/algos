@@ -34,7 +34,7 @@ class MeetingInstant {
 }
 
 
-class Solution {
+class MeetingCollision {
 
     public static int maxCollissions(List<Meeting> meetings) {
 

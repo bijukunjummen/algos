@@ -9,49 +9,89 @@ public class LinkedListAlgoTest {
 
     @Test
     public void testIterativeAddition() {
-        LinkedList<Integer> linkedList1 = new LinkedList<Integer>();
-        linkedList1.insertAtHead(5);
-        linkedList1.insertAtHead(6);
-        linkedList1.insertAtHead(9);
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.insertAtHead(5);
+        list.insertAtHead(6);
+        list.insertAtHead(9);
 
         LinkedList<Integer> linkedList2 = new LinkedList<Integer>();
         linkedList2.insertAtHead(4);
         linkedList2.insertAtHead(5);
         linkedList2.insertAtHead(3);
 
-        assertThat(sumIter(linkedList1, linkedList2).toString()).isEqualTo("2-2-0-1-");
+        assertThat(sumIter(list, linkedList2).toString()).isEqualTo("2-2-0-1-");
+    }
+
+    Node<Integer> reverse(Node<Integer> l) {
+        Node<Integer> current = l;
+        Node<Integer> prev = null;
+
+        while (current != null) {
+            Node<Integer> next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    Node<Integer> reverseRecursive(Node<Integer> l) {
+        return reverseRecursiveHelper(l);
+    }
+
+    Node<Integer> reverseRecursiveHelper(Node<Integer> l) {
+        if (l.next == null) {
+            return l;
+        }
+        Node<Integer> curr = reverseRecursiveHelper(l.next);
+        l.next.next = l;
+        l.next = null;
+        return curr;
+    }
+    @Test
+    void testReverse() {
+        Node<Integer> l = new Node<>(1, new Node<>(2, new Node<>(3, null)));
+        Node<Integer> reversed = reverse(l);
+        assertThat(reversed.data).isEqualTo(3);
+    }
+
+    @Test
+    void testReverseRecursive() {
+        Node<Integer> l = new Node<>(1, new Node<>(2, new Node<>(3, null)));
+        Node<Integer> reversed = reverseRecursive(l);
+        assertThat(reversed.data).isEqualTo(3);
     }
 
     @Test
     public void testRecursiveAddition() {
-        LinkedList<Integer> linkedList1 = new LinkedList<Integer>();
-        linkedList1.insertAtHead(5);
-        linkedList1.insertAtHead(6);
-        linkedList1.insertAtHead(9);
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.insertAtHead(5);
+        list.insertAtHead(6);
+        list.insertAtHead(9);
 
         LinkedList<Integer> linkedList2 = new LinkedList<Integer>();
         linkedList2.insertAtHead(4);
         linkedList2.insertAtHead(5);
         linkedList2.insertAtHead(3);
 
-        assertThat(sumRecursive(linkedList1, linkedList2).toString()).isEqualTo("2-2-0-1-");
+        assertThat(sumRecursive(list, linkedList2).toString()).isEqualTo("2-2-0-1-");
     }
 
     @Test
     public void testForStartOfALoop() {
-        LinkedList<Integer> linkedList1 = new LinkedList<Integer>();
-        linkedList1.insertAtHead(7);
-        Node<Integer> node6 = linkedList1.insertAtHead(6);
-        linkedList1.insertAtHead(5);
-        linkedList1.insertAtHead(4);
-        Node<Integer> node3 = linkedList1.insertAtHead(3);
-        linkedList1.insertAtHead(2);
-        linkedList1.insertAtHead(1);
-        linkedList1.insertAtHead(0);
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.insertAtHead(7);
+        Node<Integer> node6 = list.insertAtHead(6);
+        list.insertAtHead(5);
+        list.insertAtHead(4);
+        Node<Integer> node3 = list.insertAtHead(3);
+        list.insertAtHead(2);
+        list.insertAtHead(1);
+        list.insertAtHead(0);
         node6.next = node3;
 
-        Node<Integer> slow = linkedList1.head;
-        Node<Integer> fast = linkedList1.head;
+        Node<Integer> slow = list.head;
+        Node<Integer> fast = list.head;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -65,7 +105,7 @@ public class LinkedListAlgoTest {
             return;
         }
 
-        slow = linkedList1.head;
+        slow = list.head;
         while (slow != fast) {
             slow = slow.next;
             fast = fast.next;
@@ -97,10 +137,10 @@ public class LinkedListAlgoTest {
 
             int nodeval = val % 10;
             if (r == null) {
-                r = new Node<Integer>(nodeval, null);
+                r = new Node<>(nodeval, null);
                 result.head = r;
             } else {
-                r.next = new Node<Integer>(nodeval, null);
+                r.next = new Node<>(nodeval, null);
                 r = r.next;
             }
 
@@ -174,4 +214,10 @@ class Node<T> {
         this.next = next;
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "data=" + data +
+                '}';
+    }
 }
