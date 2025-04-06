@@ -11,28 +11,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MergeIntervals {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length == 0) return intervals;
-        //sort by start time.
-        Arrays.sort(intervals, Comparator.comparingInt(n -> n[0]));
         List<int[]> result = new ArrayList<>();
-        int[] anchor = intervals[0];
-        result.add(anchor);
-
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        int[] curr = intervals[0];
         for (int i = 1; i < intervals.length; i++) {
-            int[] currInterval = intervals[i];
-            if (overLaps(anchor, currInterval)) {
-                if (currInterval[1] > anchor[1]) anchor[1] = currInterval[1];
+            if (overLaps(curr, intervals[i])) {
+                curr = mergeIntervals(curr, intervals[i]);
             } else {
-                result.add(currInterval);
-                anchor = currInterval;
+                result.add(curr);
+                curr = intervals[i];
             }
         }
-
+        result.add(curr);
         return result.toArray(new int[0][0]);
     }
 
-    private boolean overLaps(int[] int1, int[] int2) {
-        if (int2[0] <= int1[1]) {
+    private int[] mergeIntervals(int[] a, int[] b) {
+        return new int[] {a[0], Math.max(a[1], b[1])};
+    }
+
+    private boolean overLaps(int[] a, int[] b) {
+        if (b[0] <= a[1]) {
             return true;
         }
         return false;

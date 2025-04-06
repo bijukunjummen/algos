@@ -1,6 +1,5 @@
 package org.bk.algo.general;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -33,6 +32,5 @@ class NumTilePossibilitiesTest {
         assertThat(numTilePossibilities("AAB")).isEqualTo(8);
         assertThat(numTilePossibilities("AAABBC")).isEqualTo(188);
         assertThat(numTilePossibilities("V")).isEqualTo(1);
-
     }
 }
