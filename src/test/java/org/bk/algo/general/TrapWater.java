@@ -9,22 +9,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TrapWater {
     public int trap(int[] height) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        int result = 0;
-
-        for (int current = 0; current < height.length; current++) {
-            while (!stack.isEmpty() && height[current] > height[stack.peek()]) {
-                int top = stack.pop();
-                if (stack.isEmpty()) {
-                    break;
-                }
-                int dist = current - stack.peek() - 1;
-                int bounded_height = Math.min(height[current], height[stack.peek()]) - height[top];
-                result += dist * bounded_height;
-            }
-            stack.push(current);
+        int n = height.length;
+        int[] lmax = new int[n];
+        int[] rmax = new int[n];
+        lmax[0] = 0;
+        for (int i = 1; i < n; i++) {
+            lmax[i] = Math.max(lmax[i - 1], height[i - 1]);
         }
-        return result;
+
+        rmax[n - 1] = 0;
+        for (int i = n - 2; i >= 0; i--) {
+            rmax[i] = Math.max(rmax[i + 1], height[i + 1]);
+        }
+        int total = 0;
+        for (int i = 0; i < n; i++) {
+            int p = Math.min(lmax[i], rmax[i]) - height[i];
+            total +=  p > 0? p:0;
+        }
+        return total;
     }
 
     @Test
