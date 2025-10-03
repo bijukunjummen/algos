@@ -51,12 +51,7 @@ class ThreeSum {
 
     @Test
     void testThreeSum() {
-        List<List<Integer>> result = threeSum(new int[]{-1, 0, 1, 2, -1, -4});
-        assertThat(result).isEqualTo(List.of(List.of(-1, 2, -1), List.of(-1, 1, 0)));
-    }
-    @Test
-    void testThreeSum2() {
-        List<List<Integer>> result = threeSum(new int[]{0, 0, 0});
-        assertThat(result).isEqualTo(List.of(List.of(0, 0, 0)));
+        assertThat(threeSum(new int[]{-1, 0, 1, 2, -1, -4})).isEqualTo(List.of(List.of(-1, 2, -1), List.of(-1, 1, 0)));
+        assertThat(threeSum(new int[]{0, 0, 0})).isEqualTo(List.of(List.of(0, 0, 0)));
     }
 }

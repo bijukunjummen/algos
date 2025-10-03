@@ -9,19 +9,19 @@ public class BinarySearch {
         int lo = 0;
         int hi = arr.length - 1;
 
-        while (lo <= hi) {
+        while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
             int cmp = anItem.compareTo(arr[mid]);
 
             if (cmp == 0) {
-                return mid;
+                hi = mid;
             } else if (cmp < 0) {
                 hi = mid - 1;
             } else {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return lo;
     }
 
     @Test

@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,10 +39,10 @@ class LevelByLevel {
         Queue<TreeNode> queue = new ArrayDeque<>();
         queue.add(node);
         while (!queue.isEmpty()) {
-            int currentLevelSize = queue.size();
             List<TreeNode> currentLevel = new ArrayList<>();
-            for (int i = 0; i < currentLevelSize; i++) {
-                TreeNode currentNode = queue.poll();
+            currentLevel.addAll(queue);
+            queue.clear();
+            for (TreeNode currentNode : currentLevel) {
                 currentLevel.add(currentNode);
                 if (currentNode.left != null) {
                     queue.add(currentNode.left);
@@ -51,6 +53,7 @@ class LevelByLevel {
             }
             result.add(currentLevel);
         }
+
         return result;
     }
 

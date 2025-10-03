@@ -9,72 +9,86 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AlienOrder {
     public String alienOrder(String[] words) {
-        Map<Character, List<Character>> adjList = new HashMap<>();
+
+        Map<Character, Set<Character>> graph = new HashMap<>();
+        for (String word : words) {
+            for  (char c : word.toCharArray()) {
+                graph.computeIfAbsent(c, k -> new HashSet<>());
+            }
+        }
         for (int i = 0; i < words.length - 1; i++) {
-            String word1 = words[i];
-            String word2 = words[i + 1];
-            populateGraphUsingWords(word1, word2, adjList);
+            createGraphFrom(words[i], words[i + 1], graph);
         }
 
+        System.out.println(graph);
+        List<Character> sorted = topologicalSort(graph);
+        String str  = sorted.stream().map(c -> c.toString()).collect(Collectors.joining());
+        return str;
+    }
+
+    private void createGraphFrom(String w1, String w2, Map<Character, Set<Character>> graph) {
+        int len1 = w1.length();
+        int len2 = w2.length();
+        int i = 0;
+        int upto = Math.min(len1, len2);
+        while (i < upto && w1.charAt(i) == w2.charAt(i) ) {
+            i++;
+        }
+        if (i == upto) {
+            return;
+        }
+        if (w1.charAt(i) != w2.charAt(i)) {
+            graph.get(w1.charAt(i)).add(w2.charAt(i));
+        }
+    }
+
+    private List<Character> topologicalSort(Map<Character, Set<Character>> graph) {
+        List<Character> sorted = new ArrayList<>();
+        Set<Character> visited = new HashSet<>();
+        Set<Character> onStack = new HashSet<>();
         try {
-            List<Character> ordered = topologicalSort(adjList);
-            return ordered.stream().map(c -> String.valueOf(c)).collect(Collectors.joining());
-        } catch (IllegalStateException illegalStateException) {
-            return "";
+            traverse(graph, sorted, visited, onStack);
+        }catch (IllegalStateException e) {
+//            e.printStackTrace();
+            return List.of();
         }
+        return sorted.reversed();
     }
 
-    private List<Character> topologicalSort(Map<Character, List<Character>> adjList) {
-        Deque<Character> reversePostOrderStack = new ArrayDeque<>();
-        Set<Character> marked = new HashSet<>();
-        Set<Character> onCallStack = new HashSet<>();
-        for (Character c : adjList.keySet()) {
-            if (!marked.contains(c)) {
-                tps(c, adjList, marked, reversePostOrderStack, onCallStack);
-            }
-        }
-
-        return reversePostOrderStack.stream().collect(Collectors.toList());
-    }
-
-    private void tps(Character c,
-                     Map<Character, List<Character>> adjList,
-                     Set<Character> marked,
-                     Deque<Character> reversePostOrderStack,
-                     Set<Character> onCallStack) {
-        onCallStack.add(c);
-        marked.add(c);
-        List<Character> deps = adjList.get(c);
-        if (deps == null) deps = List.of();
-        for (Character w : deps) {
-            if (!marked.contains(w)) {
-                tps(w, adjList, marked, reversePostOrderStack, onCallStack);
-            } else if (onCallStack.contains(w)) {
-                throw new IllegalStateException("Has a cycle");
-            }
-        }
-        reversePostOrderStack.push(c);
-        onCallStack.remove(c);
-    }
-
-    private void populateGraphUsingWords(String word1, String word2, Map<Character, List<Character>> adjList) {
-        char[] arr1 = word1.toCharArray();
-        char[] arr2 = word2.toCharArray();
-
-        for (int i = 0; i < Math.min(arr1.length, arr2.length); i++) {
-            if (arr1[i] != arr2[i]) {
-                adjList.computeIfAbsent(arr1[i], c -> new ArrayList<>());
-                adjList.get(arr1[i]).add(arr2[i]);
-                return;
-            } else {
-                adjList.computeIfAbsent(arr1[i], c -> new ArrayList<>());
+    private void traverse(Map<Character, Set<Character>> graph, List<Character> sorted, Set<Character> visited, Set<Character> onStack) {
+        for (Character c: graph.keySet()) {
+            if (!visited.contains(c)) {
+                traverse(graph, c, sorted, visited, onStack);
             }
         }
     }
+
+    private void traverse(Map<Character, Set<Character>> graph, Character c, List<Character> sorted,
+                          Set<Character> visited, Set<Character> onStack) {
+        if (visited.contains(c)) {
+            return;
+        }
+        onStack.add(c);
+        visited.add(c);
+        if (graph.containsKey(c)) {
+            for (Character child : graph.get(c)) {
+                if (!visited.contains(child)) {
+                    traverse(graph, child, sorted, visited, onStack);
+                } else if (onStack.contains(child)) {
+                    throw new IllegalStateException("cycle..");
+                }
+            }
+        }
+        sorted.add(c);
+        onStack.remove(c);
+    }
+
 
     @Test
     void testOrder1() {
-        String[] words = new String[]{"wrt", "wrf", "er", "ett", "rftt"};
-        assertThat(alienOrder(words)).isEqualTo("wertf");
+        assertThat(alienOrder(new String[]{"wrt", "wrf", "er", "ett", "rftt"})).isEqualTo("wertf");
+        assertThat(alienOrder(new String[]{"z", "x"})).isEqualTo("zx");
+        assertThat(alienOrder(new String[]{"z", "x", "z"})).isEqualTo("");
+        assertThat(alienOrder(new String[]{"z", "z"})).isEqualTo("z");
     }
 }
