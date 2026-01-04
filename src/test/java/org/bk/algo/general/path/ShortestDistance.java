@@ -33,7 +33,7 @@ class ShortestDistance {
         }
         if  (shortestDistance == Integer.MAX_VALUE) {
             return -1;
-        };
+        }
         return shortestDistance;
     }
 
