@@ -43,7 +43,6 @@ class LevelByLevel {
             currentLevel.addAll(queue);
             queue.clear();
             for (TreeNode currentNode : currentLevel) {
-                currentLevel.add(currentNode);
                 if (currentNode.left != null) {
                     queue.add(currentNode.left);
                 }
